@@ -9,14 +9,13 @@
 <style>
   * { margin:0; padding:0; box-sizing:border-box; touch-action:manipulation; }
   body { font-family:'Nunito',sans-serif; background:#FFF9F0; min-height:100vh; overflow-x:hidden; }
-
-body::before {
-content:‘⭐🌟✨⭐🌟✨⭐🌟’;
-position:fixed; top:-20px; left:0; right:0;
-font-size:28px; letter-spacing:40px; opacity:0.1;
-animation:bgFloat 6s ease-in-out infinite; pointer-events:none; z-index:0;
-}
-@keyframes bgFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(12px)} }
+  body::before {
+    content:'⭐🌟✨⭐🌟✨⭐🌟';
+    position:fixed; top:-20px; left:0; right:0;
+    font-size:28px; letter-spacing:40px; opacity:0.1;
+    animation:bgFloat 6s ease-in-out infinite; pointer-events:none; z-index:0;
+  }
+  @keyframes bgFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(12px)} }
 
 header {
 background:linear-gradient(135deg,#FF6B9D,#FF9F43);
@@ -25,75 +24,39 @@ box-shadow:0 4px 20px rgba(255,107,157,0.3); position:relative; z-index:1;
 }
 header h1 { font-size:clamp(26px,7vw,42px); font-weight:900; color:white; text-shadow:3px 3px 0 rgba(0,0,0,0.1); }
 header p  { color:rgba(255,255,255,0.9); font-size:clamp(13px,3.5vw,16px); font-weight:700; margin-top:2px; }
-.back-btn {
-position:absolute; top:14px; left:14px;
-background:rgba(255,255,255,0.25); border:none; border-radius:50px;
-padding:8px 16px; color:white; font-family:‘Nunito’,sans-serif;
-font-size:14px; font-weight:800; cursor:pointer; text-decoration:none; display:inline-block;
-}
+.back-btn { position:absolute; top:14px; left:14px; background:rgba(255,255,255,0.25); border:none; border-radius:50px; padding:8px 16px; color:white; font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:800; cursor:pointer; text-decoration:none; display:inline-block; }
 
 .main { max-width:600px; margin:0 auto; padding:20px 16px; position:relative; z-index:1; }
 
-/* API Key setup */
-.apikey-section {
-background:white; border-radius:28px; border:5px solid #5DADE2;
-padding:20px 18px; margin-bottom:20px;
-box-shadow:0 6px 24px rgba(93,173,226,0.15);
-}
+/* API Key Box */
+.apikey-section { background:white; border-radius:28px; border:5px solid #5DADE2; padding:20px 18px; margin-bottom:20px; box-shadow:0 6px 24px rgba(93,173,226,0.15); }
 .apikey-title { font-size:clamp(15px,4vw,18px); font-weight:900; color:#1A3A5C; margin-bottom:6px; text-align:center; }
-.apikey-sub { font-size:13px; font-weight:700; color:#888; text-align:center; margin-bottom:12px; line-height:1.5; }
-.apikey-sub a { color:#5DADE2; }
+.apikey-steps { background:#F0F8FF; border-radius:16px; padding:14px 16px; margin-bottom:14px; font-size:13px; font-weight:700; color:#1A3A5C; line-height:2; }
+.apikey-steps a { color:#5DADE2; font-weight:900; }
+.apikey-steps ol { padding-left:18px; }
 .apikey-row { display:flex; gap:10px; }
-.apikey-input {
-flex:1; padding:12px 16px; border:4px solid #D5EAF8; border-radius:16px;
-font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:800; color:#333;
-outline:none; background:#F8FBFF;
-}
+.apikey-input { flex:1; padding:12px 16px; border:4px solid #D5EAF8; border-radius:16px; font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:800; color:#333; outline:none; background:#F8FBFF; }
 .apikey-input:focus { border-color:#5DADE2; }
 .apikey-input::placeholder { color:#CCC; }
-.apikey-save-btn {
-padding:12px 18px; border-radius:16px; border:none;
-background:#5DADE2; color:white;
-font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:900;
-cursor:pointer; white-space:nowrap;
-}
+.apikey-save-btn { padding:12px 18px; border-radius:16px; border:none; background:#5DADE2; color:white; font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:900; cursor:pointer; white-space:nowrap; }
+.apikey-save-btn:active { opacity:0.8; }
 .apikey-ok { display:none; background:#E8FFF4; border:3px solid #2ECC71; border-radius:14px; padding:10px 16px; font-size:14px; font-weight:800; color:#1A6B45; text-align:center; margin-top:10px; }
 .apikey-ok.show { display:block; }
+.change-key-btn { background:none; border:none; color:#5DADE2; font-family:‘Nunito’,sans-serif; font-size:13px; font-weight:800; cursor:pointer; margin-top:6px; display:block; width:100%; text-align:center; }
 
 /* Input Section */
-.input-section {
-background:white; border-radius:28px; border:5px solid #FF6B9D;
-padding:20px 18px; margin-bottom:20px;
-box-shadow:0 6px 24px rgba(255,107,157,0.15);
-}
+.input-section { background:white; border-radius:28px; border:5px solid #FF6B9D; padding:20px 18px; margin-bottom:20px; box-shadow:0 6px 24px rgba(255,107,157,0.15); }
 .input-label { font-size:clamp(16px,4.5vw,20px); font-weight:900; color:#6C3483; text-align:center; margin-bottom:14px; }
 .input-row { display:flex; gap:10px; align-items:stretch; }
-.shape-input {
-flex:1; padding:14px 18px; border:4px solid #E8D5F5; border-radius:18px;
-font-family:‘Nunito’,sans-serif; font-size:clamp(16px,4.5vw,20px);
-font-weight:800; color:#333; outline:none; background:#FFFBFF; transition:border-color 0.2s;
-}
+.shape-input { flex:1; padding:14px 18px; border:4px solid #E8D5F5; border-radius:18px; font-family:‘Nunito’,sans-serif; font-size:clamp(16px,4.5vw,20px); font-weight:800; color:#333; outline:none; background:#FFFBFF; transition:border-color 0.2s; }
 .shape-input:focus { border-color:#FF6B9D; }
 .shape-input::placeholder { color:#CCC; font-weight:700; }
-.generate-btn {
-padding:14px 20px; border-radius:18px; border:none;
-background:linear-gradient(135deg,#FF6B9D,#FF9F43);
-color:white; font-family:‘Nunito’,sans-serif;
-font-size:clamp(14px,4vw,18px); font-weight:900;
-cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.12);
-transition:all 0.15s; white-space:nowrap;
-display:flex; align-items:center; gap:6px; -webkit-tap-highlight-color:transparent;
-}
+.generate-btn { padding:14px 20px; border-radius:18px; border:none; background:linear-gradient(135deg,#FF6B9D,#FF9F43); color:white; font-family:‘Nunito’,sans-serif; font-size:clamp(14px,4vw,18px); font-weight:900; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.12); transition:all 0.15s; white-space:nowrap; display:flex; align-items:center; gap:6px; -webkit-tap-highlight-color:transparent; }
 .generate-btn:active { transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.12); }
 .generate-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-
 .quick-label { font-size:13px; font-weight:800; color:#BBB; text-align:center; margin:12px 0 8px; }
 .quick-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-.chip {
-background:#F5EEFF; border:3px solid #E8D5F5; border-radius:50px;
-padding:7px 14px; font-size:clamp(12px,3.2vw,14px); font-weight:800; color:#9B59B6;
-cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
-}
+.chip { background:#F5EEFF; border:3px solid #E8D5F5; border-radius:50px; padding:7px 14px; font-size:clamp(12px,3.2vw,14px); font-weight:800; color:#9B59B6; cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent; }
 .chip:active { background:#FF6B9D; color:white; border-color:#FF6B9D; transform:scale(0.96); }
 
 /* Loading */
@@ -105,14 +68,13 @@ cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
 .loading-sub  { font-size:13px; font-weight:700; color:#BBB; margin-top:4px; }
 
 /* Error */
-.error-box { display:none; background:#FFF0F0; border:4px solid #E74C3C; border-radius:20px; padding:14px 18px; margin-bottom:16px; font-size:15px; font-weight:800; color:#C0392B; text-align:center; line-height:1.5; }
+.error-box { display:none; background:#FFF0F0; border:4px solid #E74C3C; border-radius:20px; padding:14px 18px; margin-bottom:16px; font-size:15px; font-weight:800; color:#C0392B; text-align:center; line-height:1.6; }
 .error-box.show { display:block; }
 
 /* Canvas */
 .canvas-wrapper { background:white; border-radius:28px; border:5px solid #FFD93D; box-shadow:0 8px 30px rgba(0,0,0,0.1); padding:16px; margin-bottom:20px; display:none; }
 .canvas-wrapper.show { display:block; }
 .canvas-label { font-size:clamp(14px,4vw,20px); font-weight:900; color:#FF6B9D; text-align:center; margin-bottom:10px; }
-
 .canvas-container { position:relative; border-radius:18px; overflow:hidden; background:#FFFBF0; border:3px dashed #FFD93D; touch-action:none; }
 #guideCanvas, #drawCanvas { display:block; width:100%; height:auto; position:absolute; top:0; left:0; }
 #guideCanvas { z-index:1; } #drawCanvas { z-index:2; }
@@ -134,8 +96,6 @@ cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
 .feedback-bar { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:12px; }
 .score-badge { background:linear-gradient(135deg,#6C3483,#9B59B6); color:white; font-size:clamp(13px,3.5vw,16px); font-weight:900; padding:8px 18px; border-radius:50px; box-shadow:0 4px 12px rgba(108,52,131,0.3); }
 .stars-display { font-size:clamp(22px,6vw,32px); letter-spacing:3px; min-width:110px; text-align:center; }
-
-/* Buttons */
 .btn-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .btn { padding:16px; border-radius:20px; border:none; font-family:‘Nunito’,sans-serif; font-size:clamp(15px,4vw,19px); font-weight:900; cursor:pointer; transition:all 0.15s; box-shadow:0 5px 0 rgba(0,0,0,0.15); -webkit-tap-highlight-color:transparent; display:flex; align-items:center; justify-content:center; gap:8px; }
 .btn:active { transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,0.15); }
@@ -151,7 +111,6 @@ cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
 .celebration-title { font-size:clamp(28px,8vw,40px); font-weight:900; color:#FF6B9D; margin-bottom:8px; }
 .celebration-msg   { font-size:18px; font-weight:700; color:#6C3483; margin-bottom:20px; }
 .btn-again { background:linear-gradient(135deg,#FF6B9D,#FF9F43); color:white; border:none; padding:16px 40px; border-radius:50px; font-family:‘Nunito’,sans-serif; font-size:20px; font-weight:900; cursor:pointer; }
-
 .confetti-piece { position:fixed; width:12px; height:12px; border-radius:2px; animation:confettiFall 2.5s ease-in forwards; z-index:200; pointer-events:none; }
 @keyframes confettiFall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
 </style>
@@ -167,19 +126,23 @@ cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
 
 <div class="main">
 
-  <!-- API Key Setup -->
+  <!-- API Key -->
 
   <div class="apikey-section" id="apikeySection">
-    <div class="apikey-title">🔑 Free Gemini API Key</div>
-    <div class="apikey-sub">
-      Get your FREE key at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a><br>
-      No credit card needed! Paste it below once and it's saved.
+    <div class="apikey-title">🔑 Free OpenRouter API Key</div>
+    <div class="apikey-steps">
+      <ol>
+        <li>Go to <a href="https://openrouter.ai" target="_blank">openrouter.ai</a> and sign up free</li>
+        <li>Click your profile → <b>Keys</b> → <b>Create Key</b></li>
+        <li>Copy the key and paste below — it's <b>100% free</b>, no credit card!</li>
+      </ol>
     </div>
     <div class="apikey-row">
-      <input type="password" id="apikeyInput" class="apikey-input" placeholder="Paste your Gemini API key here…"/>
-      <button class="apikey-save-btn" onclick="saveApiKey()">Save</button>
+      <input type="password" id="apikeyInput" class="apikey-input" placeholder="Paste your OpenRouter key (sk-or-…)"/>
+      <button class="apikey-save-btn" onclick="saveApiKey()">Save ✓</button>
     </div>
-    <div class="apikey-ok" id="apikeyOk">✅ API key saved! You're ready to go!</div>
+    <div class="apikey-ok" id="apikeyOk">✅ Key saved! You're ready to draw!</div>
+    <button class="change-key-btn" id="changeKeyBtn" onclick="changeKey()" style="display:none">🔄 Change API key</button>
   </div>
 
   <!-- Shape Input -->
@@ -196,7 +159,7 @@ cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
       </button>
     </div>
     <div class="quick-label">— or tap a suggestion —</div>
-    <div class="quick-chips" id="quickChips">
+    <div class="quick-chips">
       <span class="chip" data-val="apple">🍎 Apple</span>
       <span class="chip" data-val="cat">🐱 Cat</span>
       <span class="chip" data-val="car">🚗 Car</span>
@@ -211,8 +174,8 @@ cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
       <span class="chip" data-val="flower">🌸 Flower</span>
       <span class="chip" data-val="dog">🐶 Dog</span>
       <span class="chip" data-val="boat">⛵ Boat</span>
-      <span class="chip" data-val="bicycle">🚲 Bicycle</span>
       <span class="chip" data-val="ice cream">🍦 Ice Cream</span>
+      <span class="chip" data-val="balloon">🎈 Balloon</span>
     </div>
   </div>
 
@@ -220,8 +183,8 @@ cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
 
   <div class="loading-box" id="loadingBox">
     <div class="spinner"></div>
-    <div class="loading-text" id="loadingText">✨ AI is creating your shape…</div>
-    <div class="loading-sub">Just a moment!</div>
+    <div class="loading-text" id="loadingText">✨ AI is drawing your shape…</div>
+    <div class="loading-sub" id="loadingSub">Just a moment!</div>
   </div>
 
   <!-- Error -->
@@ -282,7 +245,7 @@ cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
 </div>
 
 <script>
-// ─── State ────────────────────────────────────────────────────────────────────
+// ─── Canvas ────────────────────────────────────────────────────────────────
 const guideCanvas = document.getElementById('guideCanvas');
 const drawCanvas  = document.getElementById('drawCanvas');
 const gCtx = guideCanvas.getContext('2d');
@@ -293,97 +256,175 @@ let drawColor = '#FF6B9D', brushSize = 12;
 let isDrawing = false, lastX = 0, lastY = 0;
 let currentShapeData = null;
 
-// ─── API Key ──────────────────────────────────────────────────────────────────
-function saveApiKey() {
-  const key = document.getElementById('apikeyInput').value.trim();
-  if (!key) { alert('Please paste your API key first!'); return; }
-  localStorage.setItem('gemini_api_key', key);
-  document.getElementById('apikeyOk').classList.add('show');
-  document.getElementById('apikeyInput').value = '';
-}
-
-function getApiKey() {
-  return localStorage.getItem('gemini_api_key') || '';
-}
-
-// On load: show saved status
-window.addEventListener('load', () => {
-  if (getApiKey()) {
-    document.getElementById('apikeyOk').classList.add('show');
-    document.getElementById('apikeyOk').textContent = '✅ API key loaded! Ready to draw!';
-  }
-  resizeCanvases();
-});
-
-// ─── Canvas Resize ────────────────────────────────────────────────────────────
 function resizeCanvases() {
-  const w = container.clientWidth;
-  const h = Math.round(w * 0.75);
-  [guideCanvas, drawCanvas].forEach(c => {
-    c.width = w; c.height = h;
-    c.style.width = w + 'px'; c.style.height = h + 'px';
-  });
+  const w = container.clientWidth, h = Math.round(w * 0.75);
+  [guideCanvas, drawCanvas].forEach(c => { c.width=w; c.height=h; c.style.width=w+'px'; c.style.height=h+'px'; });
   if (currentShapeData) renderGuide(currentShapeData);
 }
 window.addEventListener('resize', resizeCanvases);
 
-// ─── Render Guide Shape ───────────────────────────────────────────────────────
+// ─── API Key ────────────────────────────────────────────────────────────────
+function saveApiKey() {
+  const key = document.getElementById('apikeyInput').value.trim();
+  if (!key) { alert('Please paste your API key first!'); return; }
+  if (!key.startsWith('sk-or-')) {
+    alert('This looks incorrect. OpenRouter keys start with "sk-or-"');
+    return;
+  }
+  localStorage.setItem('or_api_key', key);
+  showKeyOk();
+  document.getElementById('apikeyInput').value = '';
+}
+function showKeyOk() {
+  document.getElementById('apikeyOk').classList.add('show');
+  document.getElementById('apikeyOk').textContent = '✅ Key saved! Ready to draw!';
+  document.getElementById('apikeyInput').style.display = 'none';
+  document.querySelector('.apikey-save-btn').style.display = 'none';
+  document.getElementById('changeKeyBtn').style.display = 'block';
+  document.querySelector('.apikey-steps').style.display = 'none';
+}
+function changeKey() {
+  localStorage.removeItem('or_api_key');
+  document.getElementById('apikeyOk').classList.remove('show');
+  document.getElementById('apikeyInput').style.display = '';
+  document.querySelector('.apikey-save-btn').style.display = '';
+  document.getElementById('changeKeyBtn').style.display = 'none';
+  document.querySelector('.apikey-steps').style.display = '';
+}
+function getApiKey() { return localStorage.getItem('or_api_key') || ''; }
+
+window.addEventListener('load', () => {
+  if (getApiKey()) showKeyOk();
+  resizeCanvases();
+});
+
+// ─── Render Guide ──────────────────────────────────────────────────────────
 function renderGuide(shapeData) {
   const w = guideCanvas.width, h = guideCanvas.height;
   gCtx.clearRect(0, 0, w, h);
-
-  const sx = w / 400, sy = h / 300;
   gCtx.save();
-  gCtx.scale(sx, sy);
+  gCtx.scale(w/400, h/300);
   gCtx.setLineDash([14, 10]);
   gCtx.strokeStyle = 'rgba(160,100,240,0.8)';
-  gCtx.lineWidth   = 14;
-  gCtx.lineJoin    = 'round';
-  gCtx.lineCap     = 'round';
-
-  shapeData.paths.forEach(p => {
-    try { gCtx.stroke(new Path2D(p.d)); } catch(e) { console.warn('path err', e); }
-  });
-
-  gCtx.setLineDash([]);
-  gCtx.restore();
-
-  // START badge
-  const r = Math.max(18, w * 0.035);
+  gCtx.lineWidth = 14; gCtx.lineJoin = 'round'; gCtx.lineCap = 'round';
+  shapeData.paths.forEach(p => { try { gCtx.stroke(new Path2D(p.d)); } catch(e){} });
+  gCtx.setLineDash([]); gCtx.restore();
+  // START dot
+  const r = Math.max(18, w*0.035);
   gCtx.fillStyle = '#2ECC71';
-  gCtx.beginPath(); gCtx.arc(w/2, r + 4, r, 0, Math.PI*2); gCtx.fill();
+  gCtx.beginPath(); gCtx.arc(w/2, r+4, r, 0, Math.PI*2); gCtx.fill();
   gCtx.fillStyle = 'white';
-  gCtx.font = `900 ${Math.max(11, w*0.023)}px Nunito`;
+  gCtx.font = `900 ${Math.max(11, w*0.022)}px Nunito`;
   gCtx.textAlign = 'center'; gCtx.textBaseline = 'middle';
-  gCtx.fillText('START', w/2, r + 4);
+  gCtx.fillText('START', w/2, r+4);
 }
 
-// ─── Gemini API Call ──────────────────────────────────────────────────────────
-const PROMPT_TEMPLATE = (name) => `You are a drawing path generator for a kids tracing app.
-Generate a simple SVG outline of "${name}" that a toddler can trace.
+// ─── OpenRouter API ────────────────────────────────────────────────────────
+// Free models to try in order — rotates if one fails
+const FREE_MODELS = [
+  'meta-llama/llama-3.3-70b-instruct:free',
+  'mistralai/mistral-7b-instruct:free',
+  'qwen/qwen-2-7b-instruct:free',
+  'google/gemma-3-4b-it:free',
+];
 
-Rules:
-- Viewbox is 400 wide x 300 tall. Center the shape with ~15% padding on all sides (x: 50-350, y: 35-265).
-- Use ONLY absolute SVG path commands: M, L, C, Q, A, Z (NO lowercase, NO relative).
-- Keep it very simple — like a coloring book. Max 4 paths.
-- Outline only, no fill details.
+const SYSTEM_PROMPT = `You are a shape path generator for a kids tracing app.
+Given an object name, respond with ONLY valid JSON — no markdown, no explanation.
 
-Respond with ONLY this JSON (no markdown, no extra text):
+Format:
 {
   "label": "Display name",
   "emoji": "one emoji",
   "paths": [
-    { "d": "SVG path string here", "label": "part name" }
+    { "d": "SVG absolute path string", "label": "part" }
   ]
-}`;
+}
 
+Rules for the SVG paths:
+- Coordinate space: 400 wide x 300 tall. Center the shape, ~15% margin on all sides (x:50-350, y:35-265).
+- Use ONLY absolute SVG commands: M, L, C, Q, A, Z — NO lowercase, NO relative coords.
+- Simple coloring-book outline a toddler can trace. Max 4 paths.
+- Outline only — no interior details.
+- Output ONLY the raw JSON object. Nothing else.`;
+
+async function callOpenRouter(objectName, modelIndex = 0) {
+  const apiKey = getApiKey();
+  const model  = FREE_MODELS[modelIndex];
+
+  document.getElementById('loadingSub').textContent = `Using model: ${model.split('/')[1].split(':')[0]}…`;
+
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+      'HTTP-Referer': window.location.href,
+      'X-Title': 'Kids Tracing App'
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user',   content: `Create a simple tracing outline for: ${objectName}` }
+      ],
+      temperature: 0.3,
+      max_tokens: 800
+    })
+  });
+
+  // Rate limited or model unavailable → try next model
+  if (res.status === 429 || res.status === 503) {
+    if (modelIndex + 1 < FREE_MODELS.length) {
+      document.getElementById('loadingText').textContent = '🔄 Trying another model…';
+      await sleep(1000);
+      return callOpenRouter(objectName, modelIndex + 1);
+    }
+    throw new Error('All free models are busy right now. Please try again in 30 seconds!');
+  }
+
+  if (!res.ok) {
+    const err = await res.json().catch(()=>({}));
+    const msg = err?.error?.message || `Error ${res.status}`;
+    if (res.status === 401) throw new Error('Invalid API key. Please check your OpenRouter key.');
+    throw new Error(msg);
+  }
+
+  const data = await res.json();
+  const raw  = data?.choices?.[0]?.message?.content || '';
+  const clean = raw.trim()
+    .replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
+
+  let parsed;
+  try { parsed = JSON.parse(clean); }
+  catch {
+    // Sometimes model wraps with extra text — try to extract JSON block
+    const match = clean.match(/\{[\s\S]*\}/);
+    if (match) { try { parsed = JSON.parse(match[0]); } catch { parsed = null; } }
+  }
+
+  if (!parsed?.paths?.length) {
+    // Try next model if parse fails
+    if (modelIndex + 1 < FREE_MODELS.length) {
+      document.getElementById('loadingText').textContent = '🔄 Trying another model…';
+      await sleep(800);
+      return callOpenRouter(objectName, modelIndex + 1);
+    }
+    throw new Error('Could not generate shape. Try a simpler word like "cat" or "star"!');
+  }
+
+  return parsed;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ─── Generate Shape ────────────────────────────────────────────────────────
 async function generateShape(name) {
   name = name.trim();
   if (!name) { showError('Please type something to draw! 🖍️'); return; }
 
   const apiKey = getApiKey();
   if (!apiKey) {
-    showError('⚠️ Please enter your free Gemini API key above first!\nGet it free at aistudio.google.com/apikey');
+    showError('⚠️ Please enter your free OpenRouter API key above first!');
     document.getElementById('apikeySection').scrollIntoView({behavior:'smooth'});
     return;
   }
@@ -394,43 +435,13 @@ async function generateShape(name) {
   document.getElementById('actionArea').style.display = 'none';
 
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: PROMPT_TEMPLATE(name) }] }],
-        generationConfig: { temperature: 0.3, maxOutputTokens: 1000 }
-      })
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(()=>({}));
-      const msg = err?.error?.message || `HTTP ${res.status}`;
-      if (res.status === 400) throw new Error('Invalid API key. Please check and re-enter it.');
-      if (res.status === 429) throw new Error('Too many requests. Please wait a moment and try again!');
-      throw new Error(msg);
-    }
-
-    const data = await res.json();
-    const raw  = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    const clean = raw.trim()
-      .replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
-
-    let parsed;
-    try { parsed = JSON.parse(clean); }
-    catch { throw new Error('Unexpected AI response. Please try a different word!'); }
-
-    if (!parsed.paths?.length) throw new Error('No shape returned. Try a simpler word!');
-
-    currentShapeData = parsed;
-    document.getElementById('canvasLabel').textContent = `✏️ Trace the ${parsed.emoji} ${parsed.label}!`;
+    const shapeData = await callOpenRouter(name);
+    currentShapeData = shapeData;
+    document.getElementById('canvasLabel').textContent = `✏️ Trace the ${shapeData.emoji} ${shapeData.label}!`;
     document.getElementById('canvasWrapper').classList.add('show');
     document.getElementById('actionArea').style.display = '';
     resetScore();
     resizeCanvases();
-
   } catch(err) {
     showError('😅 ' + (err.message || 'Something went wrong. Try again!'));
   } finally {
@@ -438,58 +449,46 @@ async function generateShape(name) {
   }
 }
 
-// ─── UI Helpers ───────────────────────────────────────────────────────────────
+// ─── UI Helpers ────────────────────────────────────────────────────────────
 function setLoading(on, name='') {
   document.getElementById('loadingBox').classList.toggle('show', on);
   const btn = document.getElementById('generateBtn');
   btn.disabled = on;
   document.getElementById('btnIcon').textContent = on ? '⏳' : '🪄';
   document.getElementById('btnText').textContent = on ? 'Wait…' : 'Draw!';
-  if (on) document.getElementById('loadingText').textContent = `✨ Creating "${name}"…`;
+  if (on) {
+    document.getElementById('loadingText').textContent = `✨ Creating "${name}"…`;
+    document.getElementById('loadingSub').textContent = 'Connecting to AI…';
+  }
 }
-function showError(msg) {
-  const b = document.getElementById('errorBox');
-  b.innerHTML = msg.replace(/\n/g,'<br>'); b.classList.add('show');
-}
-function hideError() { document.getElementById('errorBox').classList.remove('show'); }
+function showError(msg) { const b=document.getElementById('errorBox'); b.innerHTML=msg.replace(/\n/g,'<br>'); b.classList.add('show'); }
+function hideError()     { document.getElementById('errorBox').classList.remove('show'); }
 function resetScore() {
-  dCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-  document.getElementById('scoreNum').textContent = '0';
-  document.getElementById('starsDisplay').textContent = '☆☆☆';
+  dCtx.clearRect(0,0,drawCanvas.width,drawCanvas.height);
+  document.getElementById('scoreNum').textContent='0';
+  document.getElementById('starsDisplay').textContent='☆☆☆';
 }
 
-// ─── Events ───────────────────────────────────────────────────────────────────
-document.getElementById('generateBtn').addEventListener('click', () => generateShape(document.getElementById('shapeInput').value));
-document.getElementById('shapeInput').addEventListener('keydown', e => { if(e.key==='Enter') generateShape(e.target.value); });
-document.getElementById('quickChips').addEventListener('click', e => {
-  const chip = e.target.closest('.chip');
-  if (!chip) return;
-  document.getElementById('shapeInput').value = chip.dataset.val;
-  generateShape(chip.dataset.val);
+// ─── Events ────────────────────────────────────────────────────────────────
+document.getElementById('generateBtn').addEventListener('click', ()=> generateShape(document.getElementById('shapeInput').value));
+document.getElementById('shapeInput').addEventListener('keydown', e=>{ if(e.key==='Enter') generateShape(e.target.value); });
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', ()=>{
+    document.getElementById('shapeInput').value = chip.dataset.val;
+    generateShape(chip.dataset.val);
+  });
 });
 
-// ─── Drawing ──────────────────────────────────────────────────────────────────
+// ─── Drawing ───────────────────────────────────────────────────────────────
 function getPos(e) {
-  const rect = drawCanvas.getBoundingClientRect();
-  const sx = drawCanvas.width/rect.width, sy = drawCanvas.height/rect.height;
-  const src = e.touches ? e.touches[0] : e;
-  return { x:(src.clientX-rect.left)*sx, y:(src.clientY-rect.top)*sy };
+  const rect=drawCanvas.getBoundingClientRect();
+  const sx=drawCanvas.width/rect.width, sy=drawCanvas.height/rect.height;
+  const src=e.touches?e.touches[0]:e;
+  return {x:(src.clientX-rect.left)*sx, y:(src.clientY-rect.top)*sy};
 }
-function startDraw(e) {
-  e.preventDefault(); isDrawing=true;
-  const {x,y}=getPos(e); lastX=x; lastY=y;
-  dCtx.beginPath(); dCtx.arc(x,y,brushSize/2,0,Math.PI*2);
-  dCtx.fillStyle=drawColor; dCtx.fill();
-}
-function draw(e) {
-  if(!isDrawing) return; e.preventDefault();
-  const {x,y}=getPos(e);
-  dCtx.beginPath(); dCtx.moveTo(lastX,lastY); dCtx.lineTo(x,y);
-  dCtx.strokeStyle=drawColor; dCtx.lineWidth=brushSize;
-  dCtx.lineCap='round'; dCtx.lineJoin='round'; dCtx.stroke();
-  lastX=x; lastY=y;
-}
-function endDraw(e) { if(e) e.preventDefault(); isDrawing=false; }
+function startDraw(e) { e.preventDefault(); isDrawing=true; const{x,y}=getPos(e); lastX=x; lastY=y; dCtx.beginPath(); dCtx.arc(x,y,brushSize/2,0,Math.PI*2); dCtx.fillStyle=drawColor; dCtx.fill(); }
+function draw(e)      { if(!isDrawing) return; e.preventDefault(); const{x,y}=getPos(e); dCtx.beginPath(); dCtx.moveTo(lastX,lastY); dCtx.lineTo(x,y); dCtx.strokeStyle=drawColor; dCtx.lineWidth=brushSize; dCtx.lineCap='round'; dCtx.lineJoin='round'; dCtx.stroke(); lastX=x; lastY=y; }
+function endDraw(e)   { if(e) e.preventDefault(); isDrawing=false; }
 
 drawCanvas.addEventListener('mousedown',  startDraw);
 drawCanvas.addEventListener('mousemove',  draw);
@@ -499,7 +498,7 @@ drawCanvas.addEventListener('touchstart', startDraw, {passive:false});
 drawCanvas.addEventListener('touchmove',  draw,      {passive:false});
 drawCanvas.addEventListener('touchend',   endDraw,   {passive:false});
 
-// ─── Score ────────────────────────────────────────────────────────────────────
+// ─── Score ─────────────────────────────────────────────────────────────────
 document.getElementById('clearBtn').addEventListener('click', resetScore);
 document.getElementById('checkBtn').addEventListener('click', checkScore);
 
@@ -508,44 +507,28 @@ function checkScore() {
   const w=guideCanvas.width, h=guideCanvas.height;
   const off=document.createElement('canvas'); off.width=w; off.height=h;
   const oCtx=off.getContext('2d');
-  oCtx.save(); oCtx.scale(w/400,h/300);
+  oCtx.save(); oCtx.scale(w/400, h/300);
   oCtx.strokeStyle='black'; oCtx.lineWidth=Math.max(22,400*0.055);
   oCtx.lineCap='round'; oCtx.lineJoin='round';
   currentShapeData.paths.forEach(p=>{ try{oCtx.stroke(new Path2D(p.d));}catch(e){} });
   oCtx.restore();
-
   const gd=oCtx.getImageData(0,0,w,h).data, dd=dCtx.getImageData(0,0,w,h).data;
-  let gp=0,cov=0,td=0;
-  for(let i=3;i<gd.length;i+=4){
-    if(gd[i]>50) gp++;
-    if(dd[i]>50){ td++; if(gd[i]>50) cov++; }
-  }
+  let gp=0, cov=0, td=0;
+  for(let i=3;i<gd.length;i+=4){ if(gd[i]>50)gp++; if(dd[i]>50){td++;if(gd[i]>50)cov++;} }
   if(td<80){ showCel('🤔','Hmm!','Draw something first! ✏️'); return; }
-
   const score=Math.round(((cov/Math.max(1,gp))*0.6+(cov/Math.max(1,td))*0.4)*100);
   document.getElementById('scoreNum').textContent=score;
-
   let stars,emoji,title,msg;
   if(score>=70){stars='⭐⭐⭐';emoji='🎉';title='Amazing!';msg="You're a superstar artist! 🌟";}
   else if(score>=45){stars='⭐⭐☆';emoji='😊';title='Great Job!';msg="Keep practicing, you're awesome! 💪";}
   else if(score>=20){stars='⭐☆☆';emoji='🙂';title='Good Try!';msg="Follow the dotted line! You can do it! 🎨";}
   else{stars='☆☆☆';emoji='😅';title='Try Again!';msg="Follow the purple dotted line carefully! 🖊️";}
-
   document.getElementById('starsDisplay').textContent=stars;
   showCel(emoji,title,msg);
   if(score>=45) launchConfetti();
 }
-
-function showCel(emoji,title,msg){
-  document.getElementById('celebEmoji').textContent=emoji;
-  document.getElementById('celebTitle').textContent=title;
-  document.getElementById('celebMsg').textContent=msg;
-  document.getElementById('celebration').classList.add('show');
-}
-document.getElementById('tryAgainBtn').addEventListener('click',()=>{
-  document.getElementById('celebration').classList.remove('show'); resetScore();
-});
-
+function showCel(emoji,title,msg){ document.getElementById('celebEmoji').textContent=emoji; document.getElementById('celebTitle').textContent=title; document.getElementById('celebMsg').textContent=msg; document.getElementById('celebration').classList.add('show'); }
+document.getElementById('tryAgainBtn').addEventListener('click',()=>{ document.getElementById('celebration').classList.remove('show'); resetScore(); });
 function launchConfetti(){
   const colors=['#FF6B9D','#FF9F43','#FFD93D','#2ECC71','#5DADE2','#9B59B6'];
   for(let i=0;i<60;i++) setTimeout(()=>{
@@ -559,9 +542,9 @@ function launchConfetti(){
   },i*30);
 }
 
-// ─── Color & Brush ────────────────────────────────────────────────────────────
+// ─── Color & Brush ─────────────────────────────────────────────────────────
 document.getElementById('colorPicker').addEventListener('click',e=>{
-  const dot=e.target.closest('.color-dot'); if(!dot) return;
+  const dot=e.target.closest('.color-dot'); if(!dot)return;
   document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('selected'));
   dot.classList.add('selected'); drawColor=dot.dataset.color;
 });
