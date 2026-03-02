@@ -362,14 +362,12 @@ async function generateShape(name) {
         'X-Title': 'Kids Tracing App'
       },
       body: JSON.stringify({
-        // openrouter/free auto-selects the best available free model — never stale!
-        model: 'openrouter/auto',
+        // Up to 3 models allowed — fallback tries next if one is unavailable
+        model: 'meta-llama/llama-3.3-70b-instruct:free',
         models: [
           'meta-llama/llama-3.3-70b-instruct:free',
           'google/gemma-3-12b-it:free',
-          'qwen/qwen3-8b:free',
-          'deepseek/deepseek-r1-distill-llama-8b:free',
-          'mistralai/mistral-small-3.1-24b-instruct:free'
+          'qwen/qwen3-8b:free'
         ],
         route: 'fallback',
         messages: [
