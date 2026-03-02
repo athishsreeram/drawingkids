@@ -7,427 +7,265 @@
 <title>Trace & Learn! 🎨</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; touch-action: manipulation; }
+  * { margin:0; padding:0; box-sizing:border-box; touch-action:manipulation; }
+  body { font-family:'Nunito',sans-serif; background:#FFF9F0; min-height:100vh; overflow-x:hidden; }
 
-body {
-font-family: ‘Nunito’, sans-serif;
-background: #FFF9F0;
-min-height: 100vh;
-overflow-x: hidden;
-}
-
-/* Floating stars background */
 body::before {
-content: ‘⭐🌟✨⭐🌟✨⭐🌟’;
-position: fixed;
-top: -20px; left: 0; right: 0;
-font-size: 28px;
-letter-spacing: 40px;
-opacity: 0.12;
-animation: float 6s ease-in-out infinite;
-pointer-events: none;
-z-index: 0;
+content:‘⭐🌟✨⭐🌟✨⭐🌟’;
+position:fixed; top:-20px; left:0; right:0;
+font-size:28px; letter-spacing:40px; opacity:0.1;
+animation:bgFloat 6s ease-in-out infinite; pointer-events:none; z-index:0;
 }
-
-@keyframes float {
-0%,100% { transform: translateY(0); }
-50% { transform: translateY(12px); }
-}
+@keyframes bgFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(12px)} }
 
 header {
-background: linear-gradient(135deg, #FF6B9D, #FF9F43);
-padding: 16px 20px 14px;
-text-align: center;
-box-shadow: 0 4px 20px rgba(255,107,157,0.3);
-position: relative;
-z-index: 1;
+background:linear-gradient(135deg,#FF6B9D,#FF9F43);
+padding:16px 20px 14px; text-align:center;
+box-shadow:0 4px 20px rgba(255,107,157,0.3); position:relative; z-index:1;
+}
+header h1 { font-size:clamp(26px,7vw,42px); font-weight:900; color:white; text-shadow:3px 3px 0 rgba(0,0,0,0.1); }
+header p  { color:rgba(255,255,255,0.9); font-size:clamp(13px,3.5vw,16px); font-weight:700; margin-top:2px; }
+.back-btn {
+position:absolute; top:14px; left:14px;
+background:rgba(255,255,255,0.25); border:none; border-radius:50px;
+padding:8px 16px; color:white; font-family:‘Nunito’,sans-serif;
+font-size:14px; font-weight:800; cursor:pointer; text-decoration:none; display:inline-block;
 }
 
-header h1 {
-font-size: clamp(28px, 7vw, 44px);
-font-weight: 900;
-color: white;
-text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
-letter-spacing: -1px;
+.main { max-width:600px; margin:0 auto; padding:20px 16px; position:relative; z-index:1; }
+
+/* API Key setup */
+.apikey-section {
+background:white; border-radius:28px; border:5px solid #5DADE2;
+padding:20px 18px; margin-bottom:20px;
+box-shadow:0 6px 24px rgba(93,173,226,0.15);
 }
-
-header p {
-color: rgba(255,255,255,0.9);
-font-size: clamp(13px, 3.5vw, 16px);
-font-weight: 700;
-margin-top: 2px;
+.apikey-title { font-size:clamp(15px,4vw,18px); font-weight:900; color:#1A3A5C; margin-bottom:6px; text-align:center; }
+.apikey-sub { font-size:13px; font-weight:700; color:#888; text-align:center; margin-bottom:12px; line-height:1.5; }
+.apikey-sub a { color:#5DADE2; }
+.apikey-row { display:flex; gap:10px; }
+.apikey-input {
+flex:1; padding:12px 16px; border:4px solid #D5EAF8; border-radius:16px;
+font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:800; color:#333;
+outline:none; background:#F8FBFF;
 }
-
-.main {
-max-width: 600px;
-margin: 0 auto;
-padding: 20px 16px;
-position: relative;
-z-index: 1;
+.apikey-input:focus { border-color:#5DADE2; }
+.apikey-input::placeholder { color:#CCC; }
+.apikey-save-btn {
+padding:12px 18px; border-radius:16px; border:none;
+background:#5DADE2; color:white;
+font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:900;
+cursor:pointer; white-space:nowrap;
 }
+.apikey-ok { display:none; background:#E8FFF4; border:3px solid #2ECC71; border-radius:14px; padding:10px 16px; font-size:14px; font-weight:800; color:#1A6B45; text-align:center; margin-top:10px; }
+.apikey-ok.show { display:block; }
 
-/* Shape picker */
-.shape-label {
-font-size: clamp(16px, 4.5vw, 22px);
-font-weight: 900;
-color: #6C3483;
-margin-bottom: 12px;
-text-align: center;
+/* Input Section */
+.input-section {
+background:white; border-radius:28px; border:5px solid #FF6B9D;
+padding:20px 18px; margin-bottom:20px;
+box-shadow:0 6px 24px rgba(255,107,157,0.15);
 }
-
-.shape-grid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 10px;
-margin-bottom: 24px;
+.input-label { font-size:clamp(16px,4.5vw,20px); font-weight:900; color:#6C3483; text-align:center; margin-bottom:14px; }
+.input-row { display:flex; gap:10px; align-items:stretch; }
+.shape-input {
+flex:1; padding:14px 18px; border:4px solid #E8D5F5; border-radius:18px;
+font-family:‘Nunito’,sans-serif; font-size:clamp(16px,4.5vw,20px);
+font-weight:800; color:#333; outline:none; background:#FFFBFF; transition:border-color 0.2s;
 }
-
-.shape-btn {
-background: white;
-border: 4px solid #E8D5F5;
-border-radius: 20px;
-padding: 12px 6px;
-cursor: pointer;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 6px;
-transition: all 0.15s ease;
-box-shadow: 0 4px 12px rgba(0,0,0,0.08);
--webkit-tap-highlight-color: transparent;
+.shape-input:focus { border-color:#FF6B9D; }
+.shape-input::placeholder { color:#CCC; font-weight:700; }
+.generate-btn {
+padding:14px 20px; border-radius:18px; border:none;
+background:linear-gradient(135deg,#FF6B9D,#FF9F43);
+color:white; font-family:‘Nunito’,sans-serif;
+font-size:clamp(14px,4vw,18px); font-weight:900;
+cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.12);
+transition:all 0.15s; white-space:nowrap;
+display:flex; align-items:center; gap:6px; -webkit-tap-highlight-color:transparent;
 }
+.generate-btn:active { transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.12); }
+.generate-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
 
-.shape-btn:active, .shape-btn.active {
-background: #FF6B9D;
-border-color: #FF6B9D;
-transform: scale(0.95);
-box-shadow: 0 2px 8px rgba(255,107,157,0.4);
+.quick-label { font-size:13px; font-weight:800; color:#BBB; text-align:center; margin:12px 0 8px; }
+.quick-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+.chip {
+background:#F5EEFF; border:3px solid #E8D5F5; border-radius:50px;
+padding:7px 14px; font-size:clamp(12px,3.2vw,14px); font-weight:800; color:#9B59B6;
+cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent;
 }
+.chip:active { background:#FF6B9D; color:white; border-color:#FF6B9D; transform:scale(0.96); }
 
-.shape-btn:active .shape-icon, .shape-btn.active .shape-icon { filter: brightness(0) invert(1); }
-.shape-btn:active .shape-name, .shape-btn.active .shape-name { color: white; }
+/* Loading */
+.loading-box { display:none; text-align:center; padding:28px 16px; background:white; border-radius:24px; border:4px solid #E8D5F5; margin-bottom:20px; }
+.loading-box.show { display:block; }
+.spinner { width:50px; height:50px; border:5px solid #E8D5F5; border-top-color:#FF6B9D; border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.loading-text { font-size:18px; font-weight:900; color:#9B59B6; }
+.loading-sub  { font-size:13px; font-weight:700; color:#BBB; margin-top:4px; }
 
-.shape-icon { font-size: 30px; line-height: 1; }
+/* Error */
+.error-box { display:none; background:#FFF0F0; border:4px solid #E74C3C; border-radius:20px; padding:14px 18px; margin-bottom:16px; font-size:15px; font-weight:800; color:#C0392B; text-align:center; line-height:1.5; }
+.error-box.show { display:block; }
 
-.shape-name {
-font-size: clamp(10px, 2.8vw, 13px);
-font-weight: 800;
-color: #6C3483;
-text-align: center;
-}
+/* Canvas */
+.canvas-wrapper { background:white; border-radius:28px; border:5px solid #FFD93D; box-shadow:0 8px 30px rgba(0,0,0,0.1); padding:16px; margin-bottom:20px; display:none; }
+.canvas-wrapper.show { display:block; }
+.canvas-label { font-size:clamp(14px,4vw,20px); font-weight:900; color:#FF6B9D; text-align:center; margin-bottom:10px; }
 
-/* Canvas area */
-.canvas-wrapper {
-background: white;
-border-radius: 28px;
-border: 5px solid #FFD93D;
-box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 0 0 3px rgba(255,217,61,0.3);
-padding: 16px;
-position: relative;
-margin-bottom: 20px;
-}
+.canvas-container { position:relative; border-radius:18px; overflow:hidden; background:#FFFBF0; border:3px dashed #FFD93D; touch-action:none; }
+#guideCanvas, #drawCanvas { display:block; width:100%; height:auto; position:absolute; top:0; left:0; }
+#guideCanvas { z-index:1; } #drawCanvas { z-index:2; }
+.canvas-spacer { width:100%; padding-bottom:75%; display:block; }
 
-.canvas-label {
-font-size: clamp(14px, 4vw, 18px);
-font-weight: 900;
-color: #FF6B9D;
-text-align: center;
-margin-bottom: 10px;
-}
+/* Colors */
+.color-row { display:flex; gap:10px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
+.color-dot { width:clamp(34px,9vw,44px); height:clamp(34px,9vw,44px); border-radius:50%; border:4px solid transparent; cursor:pointer; transition:all 0.15s; -webkit-tap-highlight-color:transparent; box-shadow:0 2px 6px rgba(0,0,0,0.15); }
+.color-dot.selected { border-color:#6C3483; transform:scale(1.2); }
 
-.canvas-container {
-position: relative;
-border-radius: 18px;
-overflow: hidden;
-background: #FFFBF0;
-border: 3px dashed #FFD93D;
-touch-action: none;
-}
+/* Brush */
+.brush-row { display:flex; gap:12px; justify-content:center; align-items:center; margin-bottom:14px; }
+.brush-label { font-size:13px; font-weight:800; color:#BBB; }
+.brush-btn { background:white; border:3px solid #E8D5F5; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; -webkit-tap-highlight-color:transparent; }
+.brush-btn.selected { border-color:#FF6B9D; background:#FFF0F5; }
+.brush-dot { background:#333; border-radius:50%; }
 
-#guideCanvas, #drawCanvas {
-display: block;
-width: 100%;
-height: auto;
-position: absolute;
-top: 0; left: 0;
-}
-
-#guideCanvas { z-index: 1; }
-#drawCanvas  { z-index: 2; }
-
-.canvas-spacer {
-width: 100%;
-padding-bottom: 75%;
-display: block;
-}
-
-/* Score / feedback */
-.feedback-bar {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 12px;
-margin-bottom: 12px;
-}
-
-.score-badge {
-background: linear-gradient(135deg, #6C3483, #9B59B6);
-color: white;
-font-size: clamp(13px, 3.5vw, 16px);
-font-weight: 900;
-padding: 8px 18px;
-border-radius: 50px;
-box-shadow: 0 4px 12px rgba(108,52,131,0.3);
-}
-
-.stars-display {
-font-size: clamp(22px, 6vw, 32px);
-letter-spacing: 3px;
-min-width: 110px;
-text-align: center;
-}
+/* Score */
+.feedback-bar { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:12px; }
+.score-badge { background:linear-gradient(135deg,#6C3483,#9B59B6); color:white; font-size:clamp(13px,3.5vw,16px); font-weight:900; padding:8px 18px; border-radius:50px; box-shadow:0 4px 12px rgba(108,52,131,0.3); }
+.stars-display { font-size:clamp(22px,6vw,32px); letter-spacing:3px; min-width:110px; text-align:center; }
 
 /* Buttons */
-.btn-row {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
-}
+.btn-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.btn { padding:16px; border-radius:20px; border:none; font-family:‘Nunito’,sans-serif; font-size:clamp(15px,4vw,19px); font-weight:900; cursor:pointer; transition:all 0.15s; box-shadow:0 5px 0 rgba(0,0,0,0.15); -webkit-tap-highlight-color:transparent; display:flex; align-items:center; justify-content:center; gap:8px; }
+.btn:active { transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,0.15); }
+.btn-clear { background:#FF6B9D; color:white; }
+.btn-check { background:#2ECC71; color:white; }
 
-.btn {
-padding: 16px;
-border-radius: 20px;
-border: none;
-font-family: ‘Nunito’, sans-serif;
-font-size: clamp(15px, 4vw, 19px);
-font-weight: 900;
-cursor: pointer;
-transition: all 0.15s ease;
-box-shadow: 0 5px 0 rgba(0,0,0,0.15);
--webkit-tap-highlight-color: transparent;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-}
+/* Celebration */
+.celebration { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center; padding:20px; }
+.celebration.show { display:flex; }
+.celebration-box { background:white; border-radius:36px; padding:40px 36px; box-shadow:0 20px 60px rgba(0,0,0,0.3); animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); max-width:340px; width:100%; text-align:center; }
+@keyframes popIn { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
+.celebration-emoji { font-size:80px; line-height:1; margin-bottom:12px; }
+.celebration-title { font-size:clamp(28px,8vw,40px); font-weight:900; color:#FF6B9D; margin-bottom:8px; }
+.celebration-msg   { font-size:18px; font-weight:700; color:#6C3483; margin-bottom:20px; }
+.btn-again { background:linear-gradient(135deg,#FF6B9D,#FF9F43); color:white; border:none; padding:16px 40px; border-radius:50px; font-family:‘Nunito’,sans-serif; font-size:20px; font-weight:900; cursor:pointer; }
 
-.btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
-
-.btn-clear { background: #FF6B9D; color: white; }
-.btn-check { background: #2ECC71; color: white; }
-
-/* Celebration overlay */
-.celebration {
-display: none;
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,0.5);
-z-index: 100;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-gap: 16px;
-text-align: center;
-padding: 20px;
-}
-
-.celebration.show { display: flex; }
-
-.celebration-box {
-background: white;
-border-radius: 36px;
-padding: 40px 36px;
-box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-max-width: 340px;
-width: 100%;
-}
-
-@keyframes popIn {
-from { transform: scale(0.5); opacity: 0; }
-to   { transform: scale(1);   opacity: 1; }
-}
-
-.celebration-emoji { font-size: 80px; line-height: 1; margin-bottom: 12px; }
-.celebration-title {
-font-size: clamp(28px, 8vw, 40px);
-font-weight: 900;
-color: #FF6B9D;
-margin-bottom: 8px;
-}
-.celebration-msg { font-size: 18px; font-weight: 700; color: #6C3483; margin-bottom: 20px; }
-.btn-again {
-background: linear-gradient(135deg, #FF6B9D, #FF9F43);
-color: white;
-border: none;
-padding: 16px 40px;
-border-radius: 50px;
-font-family: ‘Nunito’, sans-serif;
-font-size: 20px;
-font-weight: 900;
-cursor: pointer;
-box-shadow: 0 5px 20px rgba(255,107,157,0.4);
-}
-
-/* Color picker */
-.color-row {
-display: flex;
-gap: 10px;
-justify-content: center;
-margin-bottom: 14px;
-flex-wrap: wrap;
-}
-
-.color-dot {
-width: clamp(34px, 9vw, 44px);
-height: clamp(34px, 9vw, 44px);
-border-radius: 50%;
-border: 4px solid transparent;
-cursor: pointer;
-transition: all 0.15s;
--webkit-tap-highlight-color: transparent;
-}
-
-.color-dot.selected { border-color: #6C3483; transform: scale(1.2); }
-.color-dot:active { transform: scale(0.9); }
-
-/* Brush size */
-.brush-row {
-display: flex;
-gap: 12px;
-justify-content: center;
-align-items: center;
-margin-bottom: 16px;
-}
-
-.brush-label { font-size: 14px; font-weight: 800; color: #999; }
-
-.brush-btn {
-background: white;
-border: 3px solid #E8D5F5;
-border-radius: 50%;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: all 0.15s;
--webkit-tap-highlight-color: transparent;
-}
-
-.brush-btn.selected { border-color: #FF6B9D; background: #FFF0F5; }
-
-.brush-dot { background: #333; border-radius: 50%; }
-
-.confetti-piece {
-position: fixed;
-width: 12px;
-height: 12px;
-border-radius: 2px;
-animation: confettiFall 2.5s ease-in forwards;
-z-index: 200;
-pointer-events: none;
-}
-
-@keyframes confettiFall {
-0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
+.confetti-piece { position:fixed; width:12px; height:12px; border-radius:2px; animation:confettiFall 2.5s ease-in forwards; z-index:200; pointer-events:none; }
+@keyframes confettiFall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
 </style>
 
 </head>
 <body>
 
 <header>
+  <a href="index.html" class="back-btn">← Back</a>
   <h1>🖍️ Trace & Learn!</h1>
-  <p>Follow the dotted line to draw!</p>
+  <p>Type any object — AI draws it for you!</p>
 </header>
 
 <div class="main">
 
-  <div class="shape-label">👇 Pick a Shape!</div>
+  <!-- API Key Setup -->
 
-  <div class="shape-grid" id="shapePicker">
-    <button class="shape-btn active" data-shape="circle">
-      <span class="shape-icon">⭕</span>
-      <span class="shape-name">Circle</span>
-    </button>
-    <button class="shape-btn" data-shape="square">
-      <span class="shape-icon">🟦</span>
-      <span class="shape-name">Square</span>
-    </button>
-    <button class="shape-btn" data-shape="triangle">
-      <span class="shape-icon">🔺</span>
-      <span class="shape-name">Triangle</span>
-    </button>
-    <button class="shape-btn" data-shape="star">
-      <span class="shape-icon">⭐</span>
-      <span class="shape-name">Star</span>
-    </button>
-    <button class="shape-btn" data-shape="heart">
-      <span class="shape-icon">❤️</span>
-      <span class="shape-name">Heart</span>
-    </button>
-    <button class="shape-btn" data-shape="house">
-      <span class="shape-icon">🏠</span>
-      <span class="shape-name">House</span>
-    </button>
-    <button class="shape-btn" data-shape="flower">
-      <span class="shape-icon">🌸</span>
-      <span class="shape-name">Flower</span>
-    </button>
-    <button class="shape-btn" data-shape="moon">
-      <span class="shape-icon">🌙</span>
-      <span class="shape-name">Moon</span>
-    </button>
+  <div class="apikey-section" id="apikeySection">
+    <div class="apikey-title">🔑 Free Gemini API Key</div>
+    <div class="apikey-sub">
+      Get your FREE key at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a><br>
+      No credit card needed! Paste it below once and it's saved.
+    </div>
+    <div class="apikey-row">
+      <input type="password" id="apikeyInput" class="apikey-input" placeholder="Paste your Gemini API key here…"/>
+      <button class="apikey-save-btn" onclick="saveApiKey()">Save</button>
+    </div>
+    <div class="apikey-ok" id="apikeyOk">✅ API key saved! You're ready to go!</div>
   </div>
 
-  <div class="canvas-wrapper">
-    <div class="canvas-label" id="canvasLabel">✏️ Trace the Circle!</div>
+  <!-- Shape Input -->
 
-```
-<!-- Color picker -->
-<div class="color-row" id="colorPicker">
-  <div class="color-dot selected" style="background:#FF6B9D" data-color="#FF6B9D"></div>
-  <div class="color-dot" style="background:#FF9F43" data-color="#FF9F43"></div>
-  <div class="color-dot" style="background:#FFD93D" data-color="#FFD93D"></div>
-  <div class="color-dot" style="background:#2ECC71" data-color="#2ECC71"></div>
-  <div class="color-dot" style="background:#5DADE2" data-color="#5DADE2"></div>
-  <div class="color-dot" style="background:#9B59B6" data-color="#9B59B6"></div>
-  <div class="color-dot" style="background:#E74C3C" data-color="#E74C3C"></div>
-  <div class="color-dot" style="background:#1ABC9C" data-color="#1ABC9C"></div>
-</div>
-
-<!-- Brush size -->
-<div class="brush-row">
-  <span class="brush-label">Brush:</span>
-  <button class="brush-btn selected" data-size="12" style="width:38px;height:38px">
-    <div class="brush-dot" style="width:8px;height:8px"></div>
-  </button>
-  <button class="brush-btn" data-size="20" style="width:46px;height:46px">
-    <div class="brush-dot" style="width:14px;height:14px"></div>
-  </button>
-  <button class="brush-btn" data-size="30" style="width:54px;height:54px">
-    <div class="brush-dot" style="width:22px;height:22px"></div>
-  </button>
-</div>
-
-<div class="canvas-container" id="canvasContainer">
-  <div class="canvas-spacer"></div>
-  <canvas id="guideCanvas"></canvas>
-  <canvas id="drawCanvas"></canvas>
-</div>
-```
-
+  <div class="input-section">
+    <div class="input-label">✏️ What do you want to trace?</div>
+    <div class="input-row">
+      <input type="text" id="shapeInput" class="shape-input"
+        placeholder="e.g. apple, cat, car..."
+        maxlength="40" autocomplete="off" autocorrect="off" spellcheck="false"/>
+      <button class="generate-btn" id="generateBtn">
+        <span id="btnIcon">🪄</span>
+        <span id="btnText">Draw!</span>
+      </button>
+    </div>
+    <div class="quick-label">— or tap a suggestion —</div>
+    <div class="quick-chips" id="quickChips">
+      <span class="chip" data-val="apple">🍎 Apple</span>
+      <span class="chip" data-val="cat">🐱 Cat</span>
+      <span class="chip" data-val="car">🚗 Car</span>
+      <span class="chip" data-val="fish">🐠 Fish</span>
+      <span class="chip" data-val="tree">🌲 Tree</span>
+      <span class="chip" data-val="sun">☀️ Sun</span>
+      <span class="chip" data-val="butterfly">🦋 Butterfly</span>
+      <span class="chip" data-val="rocket">🚀 Rocket</span>
+      <span class="chip" data-val="elephant">🐘 Elephant</span>
+      <span class="chip" data-val="house">🏠 House</span>
+      <span class="chip" data-val="star">⭐ Star</span>
+      <span class="chip" data-val="flower">🌸 Flower</span>
+      <span class="chip" data-val="dog">🐶 Dog</span>
+      <span class="chip" data-val="boat">⛵ Boat</span>
+      <span class="chip" data-val="bicycle">🚲 Bicycle</span>
+      <span class="chip" data-val="ice cream">🍦 Ice Cream</span>
+    </div>
   </div>
 
-  <div class="feedback-bar">
-    <div class="score-badge">Score: <span id="scoreNum">0</span>%</div>
-    <div class="stars-display" id="starsDisplay">☆☆☆</div>
+  <!-- Loading -->
+
+  <div class="loading-box" id="loadingBox">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">✨ AI is creating your shape…</div>
+    <div class="loading-sub">Just a moment!</div>
   </div>
 
-  <div class="btn-row">
-    <button class="btn btn-clear" id="clearBtn">🗑️ Clear</button>
-    <button class="btn btn-check" id="checkBtn">✅ Check!</button>
+  <!-- Error -->
+
+  <div class="error-box" id="errorBox"></div>
+
+  <!-- Canvas -->
+
+  <div class="canvas-wrapper" id="canvasWrapper">
+    <div class="canvas-label" id="canvasLabel">✏️ Trace the shape!</div>
+    <div class="color-row" id="colorPicker">
+      <div class="color-dot selected" style="background:#FF6B9D" data-color="#FF6B9D"></div>
+      <div class="color-dot" style="background:#FF9F43" data-color="#FF9F43"></div>
+      <div class="color-dot" style="background:#FFD93D" data-color="#FFD93D"></div>
+      <div class="color-dot" style="background:#2ECC71" data-color="#2ECC71"></div>
+      <div class="color-dot" style="background:#5DADE2" data-color="#5DADE2"></div>
+      <div class="color-dot" style="background:#9B59B6" data-color="#9B59B6"></div>
+      <div class="color-dot" style="background:#E74C3C" data-color="#E74C3C"></div>
+      <div class="color-dot" style="background:#1ABC9C" data-color="#1ABC9C"></div>
+    </div>
+    <div class="brush-row">
+      <span class="brush-label">Brush:</span>
+      <button class="brush-btn selected" data-size="12" style="width:38px;height:38px"><div class="brush-dot" style="width:8px;height:8px"></div></button>
+      <button class="brush-btn" data-size="20" style="width:46px;height:46px"><div class="brush-dot" style="width:14px;height:14px"></div></button>
+      <button class="brush-btn" data-size="30" style="width:54px;height:54px"><div class="brush-dot" style="width:22px;height:22px"></div></button>
+    </div>
+    <div class="canvas-container" id="canvasContainer">
+      <div class="canvas-spacer"></div>
+      <canvas id="guideCanvas"></canvas>
+      <canvas id="drawCanvas"></canvas>
+    </div>
+  </div>
+
+  <!-- Score + Buttons -->
+
+  <div id="actionArea" style="display:none">
+    <div class="feedback-bar">
+      <div class="score-badge">Score: <span id="scoreNum">0</span>%</div>
+      <div class="stars-display" id="starsDisplay">☆☆☆</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-clear" id="clearBtn">🗑️ Clear</button>
+      <button class="btn btn-check" id="checkBtn">✅ Check!</button>
+    </div>
   </div>
 
 </div>
@@ -438,349 +276,301 @@ pointer-events: none;
   <div class="celebration-box">
     <div class="celebration-emoji" id="celebEmoji">🎉</div>
     <div class="celebration-title" id="celebTitle">Amazing!</div>
-    <div class="celebration-msg" id="celebMsg">You did it!</div>
+    <div class="celebration-msg"   id="celebMsg">You did it!</div>
     <button class="btn-again" id="tryAgainBtn">Try Again! 🎨</button>
   </div>
 </div>
 
 <script>
+// ─── State ────────────────────────────────────────────────────────────────────
 const guideCanvas = document.getElementById('guideCanvas');
 const drawCanvas  = document.getElementById('drawCanvas');
 const gCtx = guideCanvas.getContext('2d');
 const dCtx = drawCanvas.getContext('2d');
-const container = document.getElementById('canvasContainer');
+const container   = document.getElementById('canvasContainer');
 
-let currentShape = 'circle';
-let drawColor = '#FF6B9D';
-let brushSize = 12;
-let isDrawing = false;
-let lastX = 0, lastY = 0;
+let drawColor = '#FF6B9D', brushSize = 12;
+let isDrawing = false, lastX = 0, lastY = 0;
+let currentShapeData = null;
 
-// Resize canvases
+// ─── API Key ──────────────────────────────────────────────────────────────────
+function saveApiKey() {
+  const key = document.getElementById('apikeyInput').value.trim();
+  if (!key) { alert('Please paste your API key first!'); return; }
+  localStorage.setItem('gemini_api_key', key);
+  document.getElementById('apikeyOk').classList.add('show');
+  document.getElementById('apikeyInput').value = '';
+}
+
+function getApiKey() {
+  return localStorage.getItem('gemini_api_key') || '';
+}
+
+// On load: show saved status
+window.addEventListener('load', () => {
+  if (getApiKey()) {
+    document.getElementById('apikeyOk').classList.add('show');
+    document.getElementById('apikeyOk').textContent = '✅ API key loaded! Ready to draw!';
+  }
+  resizeCanvases();
+});
+
+// ─── Canvas Resize ────────────────────────────────────────────────────────────
 function resizeCanvases() {
   const w = container.clientWidth;
   const h = Math.round(w * 0.75);
   [guideCanvas, drawCanvas].forEach(c => {
-    c.width = w;
-    c.height = h;
-    c.style.width = w + 'px';
-    c.style.height = h + 'px';
+    c.width = w; c.height = h;
+    c.style.width = w + 'px'; c.style.height = h + 'px';
   });
-  drawGuide();
+  if (currentShapeData) renderGuide(currentShapeData);
 }
+window.addEventListener('resize', resizeCanvases);
 
-// Shape definitions
-const shapes = {
-  circle: (ctx, w, h) => {
-    const cx = w/2, cy = h/2, r = Math.min(w,h)*0.35;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.stroke();
-  },
-  square: (ctx, w, h) => {
-    const s = Math.min(w,h)*0.6;
-    const x = (w-s)/2, y = (h-s)/2;
-    ctx.strokeRect(x, y, s, s);
-  },
-  triangle: (ctx, w, h) => {
-    const cx = w/2, top = h*0.12, bl = w*0.12, br = w*0.88, by = h*0.85;
-    ctx.beginPath();
-    ctx.moveTo(cx, top);
-    ctx.lineTo(br, by);
-    ctx.lineTo(bl, by);
-    ctx.closePath();
-    ctx.stroke();
-  },
-  star: (ctx, w, h) => {
-    const cx = w/2, cy = h/2;
-    const outer = Math.min(w,h)*0.38, inner = outer*0.42;
-    const pts = 5;
-    ctx.beginPath();
-    for (let i = 0; i < pts*2; i++) {
-      const angle = (i * Math.PI / pts) - Math.PI/2;
-      const r = i % 2 === 0 ? outer : inner;
-      const x = cx + Math.cos(angle)*r, y = cy + Math.sin(angle)*r;
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    }
-    ctx.closePath();
-    ctx.stroke();
-  },
-  heart: (ctx, w, h) => {
-    const cx = w/2, cy = h*0.48, s = Math.min(w,h)*0.38;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy + s*0.35);
-    ctx.bezierCurveTo(cx - s*1.1, cy - s*0.5, cx - s*1.3, cy + s*0.6, cx, cy + s*1.1);
-    ctx.bezierCurveTo(cx + s*1.3, cy + s*0.6, cx + s*1.1, cy - s*0.5, cx, cy + s*0.35);
-    ctx.stroke();
-  },
-  house: (ctx, w, h) => {
-    const cx = w/2;
-    const sw = w*0.55, sh = h*0.42;
-    const rx = cx - sw/2, ry = h*0.44;
-    // walls
-    ctx.beginPath();
-    ctx.strokeRect(rx, ry, sw, sh);
-    // roof
-    ctx.beginPath();
-    ctx.moveTo(rx - w*0.04, ry);
-    ctx.lineTo(cx, h*0.12);
-    ctx.lineTo(rx + sw + w*0.04, ry);
-    ctx.stroke();
-    // door
-    const dw = sw*0.28, dh = sh*0.42;
-    const dx = cx - dw/2, dy = ry + sh - dh;
-    ctx.strokeRect(dx, dy, dw, dh);
-  },
-  flower: (ctx, w, h) => {
-    const cx = w/2, cy = h/2;
-    const pr = Math.min(w,h)*0.15, cr = Math.min(w,h)*0.1;
-    const petals = 6;
-    for (let i = 0; i < petals; i++) {
-      const angle = (i / petals) * Math.PI * 2;
-      const px = cx + Math.cos(angle) * pr * 1.5;
-      const py = cy + Math.sin(angle) * pr * 1.5;
-      ctx.beginPath();
-      ctx.arc(px, py, pr, 0, Math.PI*2);
-      ctx.stroke();
-    }
-    ctx.beginPath();
-    ctx.arc(cx, cy, cr, 0, Math.PI*2);
-    ctx.stroke();
-  },
-  moon: (ctx, w, h) => {
-    const cx = w*0.48, cy = h/2, r = Math.min(w,h)*0.35;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, Math.PI*0.3, Math.PI*1.7);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(cx + r*0.45, cy, r*0.78, Math.PI*1.7, Math.PI*0.3);
-    ctx.stroke();
-  }
-};
-
-const shapeNames = {
-  circle:'Circle', square:'Square', triangle:'Triangle', star:'Star',
-  heart:'Heart', house:'House', flower:'Flower', moon:'Moon'
-};
-
-function drawGuide() {
+// ─── Render Guide Shape ───────────────────────────────────────────────────────
+function renderGuide(shapeData) {
   const w = guideCanvas.width, h = guideCanvas.height;
   gCtx.clearRect(0, 0, w, h);
-  gCtx.setLineDash([18, 14]);
-  gCtx.lineDashOffset = 0;
-  gCtx.strokeStyle = 'rgba(180,140,255,0.7)';
-  gCtx.lineWidth = Math.max(6, w * 0.013);
-  gCtx.lineJoin = 'round';
-  gCtx.lineCap = 'round';
-  if (shapes[currentShape]) shapes[currentShape](gCtx, w, h);
+
+  const sx = w / 400, sy = h / 300;
+  gCtx.save();
+  gCtx.scale(sx, sy);
+  gCtx.setLineDash([14, 10]);
+  gCtx.strokeStyle = 'rgba(160,100,240,0.8)';
+  gCtx.lineWidth   = 14;
+  gCtx.lineJoin    = 'round';
+  gCtx.lineCap     = 'round';
+
+  shapeData.paths.forEach(p => {
+    try { gCtx.stroke(new Path2D(p.d)); } catch(e) { console.warn('path err', e); }
+  });
+
   gCtx.setLineDash([]);
+  gCtx.restore();
 
-  // Start dot
-  drawStartDot();
-}
-
-function drawStartDot() {
-  const w = guideCanvas.width, h = guideCanvas.height;
-  // Arrow/start indicator
+  // START badge
+  const r = Math.max(18, w * 0.035);
   gCtx.fillStyle = '#2ECC71';
-  gCtx.beginPath();
-  gCtx.arc(w*0.5, h*0.08, 12, 0, Math.PI*2);
-  gCtx.fill();
+  gCtx.beginPath(); gCtx.arc(w/2, r + 4, r, 0, Math.PI*2); gCtx.fill();
   gCtx.fillStyle = 'white';
-  gCtx.font = `bold ${Math.max(12,w*0.025)}px Nunito`;
-  gCtx.textAlign = 'center';
-  gCtx.textBaseline = 'middle';
-  gCtx.fillText('GO!', w*0.5, h*0.08);
+  gCtx.font = `900 ${Math.max(11, w*0.023)}px Nunito`;
+  gCtx.textAlign = 'center'; gCtx.textBaseline = 'middle';
+  gCtx.fillText('START', w/2, r + 4);
 }
 
-// Drawing
-function getPos(e) {
-  const rect = drawCanvas.getBoundingClientRect();
-  const scaleX = drawCanvas.width / rect.width;
-  const scaleY = drawCanvas.height / rect.height;
-  const src = e.touches ? e.touches[0] : e;
-  return {
-    x: (src.clientX - rect.left) * scaleX,
-    y: (src.clientY - rect.top) * scaleY
-  };
-}
+// ─── Gemini API Call ──────────────────────────────────────────────────────────
+const PROMPT_TEMPLATE = (name) => `You are a drawing path generator for a kids tracing app.
+Generate a simple SVG outline of "${name}" that a toddler can trace.
 
-function startDraw(e) {
-  e.preventDefault();
-  isDrawing = true;
-  const {x, y} = getPos(e);
-  lastX = x; lastY = y;
-  dCtx.beginPath();
-  dCtx.arc(x, y, brushSize/2, 0, Math.PI*2);
-  dCtx.fillStyle = drawColor;
-  dCtx.fill();
-}
+Rules:
+- Viewbox is 400 wide x 300 tall. Center the shape with ~15% padding on all sides (x: 50-350, y: 35-265).
+- Use ONLY absolute SVG path commands: M, L, C, Q, A, Z (NO lowercase, NO relative).
+- Keep it very simple — like a coloring book. Max 4 paths.
+- Outline only, no fill details.
 
-function draw(e) {
-  if (!isDrawing) return;
-  e.preventDefault();
-  const {x, y} = getPos(e);
-  dCtx.beginPath();
-  dCtx.moveTo(lastX, lastY);
-  dCtx.lineTo(x, y);
-  dCtx.strokeStyle = drawColor;
-  dCtx.lineWidth = brushSize;
-  dCtx.lineCap = 'round';
-  dCtx.lineJoin = 'round';
-  dCtx.stroke();
-  lastX = x; lastY = y;
-}
+Respond with ONLY this JSON (no markdown, no extra text):
+{
+  "label": "Display name",
+  "emoji": "one emoji",
+  "paths": [
+    { "d": "SVG path string here", "label": "part name" }
+  ]
+}`;
 
-function endDraw(e) {
-  if (e) e.preventDefault();
-  isDrawing = false;
-}
+async function generateShape(name) {
+  name = name.trim();
+  if (!name) { showError('Please type something to draw! 🖍️'); return; }
 
-drawCanvas.addEventListener('mousedown', startDraw);
-drawCanvas.addEventListener('mousemove', draw);
-drawCanvas.addEventListener('mouseup', endDraw);
-drawCanvas.addEventListener('mouseleave', endDraw);
-drawCanvas.addEventListener('touchstart', startDraw, {passive:false});
-drawCanvas.addEventListener('touchmove', draw, {passive:false});
-drawCanvas.addEventListener('touchend', endDraw, {passive:false});
-
-// Clear
-document.getElementById('clearBtn').addEventListener('click', () => {
-  dCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-  document.getElementById('scoreNum').textContent = '0';
-  document.getElementById('starsDisplay').textContent = '☆☆☆';
-});
-
-// Check score
-document.getElementById('checkBtn').addEventListener('click', checkScore);
-
-function checkScore() {
-  // Render guide shape to offscreen
-  const w = guideCanvas.width, h = guideCanvas.height;
-  const offscreen = document.createElement('canvas');
-  offscreen.width = w; offscreen.height = h;
-  const octx = offscreen.getContext('2d');
-  octx.strokeStyle = 'black';
-  octx.lineWidth = Math.max(14, w * 0.04); // thick tolerance zone
-  octx.lineCap = 'round'; octx.lineJoin = 'round';
-  if (shapes[currentShape]) shapes[currentShape](octx, w, h);
-
-  const guideData = octx.getImageData(0, 0, w, h).data;
-  const drawData  = dCtx.getImageData(0, 0, w, h).data;
-
-  let guidePixels = 0, coveredPixels = 0, totalDraw = 0;
-
-  for (let i = 3; i < guideData.length; i += 4) {
-    if (guideData[i] > 50) guidePixels++;
-    if (drawData[i] > 50) {
-      totalDraw++;
-      if (guideData[i] > 50) coveredPixels++;
-    }
-  }
-
-  if (totalDraw < 100) {
-    showMessage('Hmm!', 'Draw something first! ✏️', '🤔', false);
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    showError('⚠️ Please enter your free Gemini API key above first!\nGet it free at aistudio.google.com/apikey');
+    document.getElementById('apikeySection').scrollIntoView({behavior:'smooth'});
     return;
   }
 
-  const coverage = guidePixels > 0 ? (coveredPixels / guidePixels) : 0;
-  const accuracy = totalDraw > 0 ? (coveredPixels / totalDraw) : 0;
-  const score = Math.round((coverage * 0.6 + accuracy * 0.4) * 100);
+  hideError();
+  setLoading(true, name);
+  document.getElementById('canvasWrapper').classList.remove('show');
+  document.getElementById('actionArea').style.display = 'none';
 
-  document.getElementById('scoreNum').textContent = score;
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-  let stars = '☆☆☆', emoji, title, msg;
-  if (score >= 70) {
-    stars = '⭐⭐⭐'; emoji = '🎉'; title = 'Amazing!';
-    msg = "You're a superstar artist! 🌟";
-  } else if (score >= 45) {
-    stars = '⭐⭐☆'; emoji = '😊'; title = 'Great Job!';
-    msg = "Keep practicing, you're doing awesome! 💪";
-  } else if (score >= 20) {
-    stars = '⭐☆☆'; emoji = '🙂'; title = 'Good Try!';
-    msg = "Try to follow the dotted line! You can do it! 🎨";
-  } else {
-    stars = '☆☆☆'; emoji = '😅'; title = 'Try Again!';
-    msg = "Follow the purple dotted line carefully! 🖊️";
-  }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: PROMPT_TEMPLATE(name) }] }],
+        generationConfig: { temperature: 0.3, maxOutputTokens: 1000 }
+      })
+    });
 
-  document.getElementById('starsDisplay').textContent = stars;
+    if (!res.ok) {
+      const err = await res.json().catch(()=>({}));
+      const msg = err?.error?.message || `HTTP ${res.status}`;
+      if (res.status === 400) throw new Error('Invalid API key. Please check and re-enter it.');
+      if (res.status === 429) throw new Error('Too many requests. Please wait a moment and try again!');
+      throw new Error(msg);
+    }
 
-  if (score >= 45) {
-    showMessage(title, msg, emoji, true);
-    launchConfetti();
-  } else {
-    showMessage(title, msg, emoji, false);
+    const data = await res.json();
+    const raw  = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const clean = raw.trim()
+      .replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
+
+    let parsed;
+    try { parsed = JSON.parse(clean); }
+    catch { throw new Error('Unexpected AI response. Please try a different word!'); }
+
+    if (!parsed.paths?.length) throw new Error('No shape returned. Try a simpler word!');
+
+    currentShapeData = parsed;
+    document.getElementById('canvasLabel').textContent = `✏️ Trace the ${parsed.emoji} ${parsed.label}!`;
+    document.getElementById('canvasWrapper').classList.add('show');
+    document.getElementById('actionArea').style.display = '';
+    resetScore();
+    resizeCanvases();
+
+  } catch(err) {
+    showError('😅 ' + (err.message || 'Something went wrong. Try again!'));
+  } finally {
+    setLoading(false);
   }
 }
 
-function showMessage(title, msg, emoji, celebrate) {
-  document.getElementById('celebTitle').textContent = title;
-  document.getElementById('celebMsg').textContent = msg;
-  document.getElementById('celebEmoji').textContent = emoji;
+// ─── UI Helpers ───────────────────────────────────────────────────────────────
+function setLoading(on, name='') {
+  document.getElementById('loadingBox').classList.toggle('show', on);
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = on;
+  document.getElementById('btnIcon').textContent = on ? '⏳' : '🪄';
+  document.getElementById('btnText').textContent = on ? 'Wait…' : 'Draw!';
+  if (on) document.getElementById('loadingText').textContent = `✨ Creating "${name}"…`;
+}
+function showError(msg) {
+  const b = document.getElementById('errorBox');
+  b.innerHTML = msg.replace(/\n/g,'<br>'); b.classList.add('show');
+}
+function hideError() { document.getElementById('errorBox').classList.remove('show'); }
+function resetScore() {
+  dCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+  document.getElementById('scoreNum').textContent = '0';
+  document.getElementById('starsDisplay').textContent = '☆☆☆';
+}
+
+// ─── Events ───────────────────────────────────────────────────────────────────
+document.getElementById('generateBtn').addEventListener('click', () => generateShape(document.getElementById('shapeInput').value));
+document.getElementById('shapeInput').addEventListener('keydown', e => { if(e.key==='Enter') generateShape(e.target.value); });
+document.getElementById('quickChips').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.getElementById('shapeInput').value = chip.dataset.val;
+  generateShape(chip.dataset.val);
+});
+
+// ─── Drawing ──────────────────────────────────────────────────────────────────
+function getPos(e) {
+  const rect = drawCanvas.getBoundingClientRect();
+  const sx = drawCanvas.width/rect.width, sy = drawCanvas.height/rect.height;
+  const src = e.touches ? e.touches[0] : e;
+  return { x:(src.clientX-rect.left)*sx, y:(src.clientY-rect.top)*sy };
+}
+function startDraw(e) {
+  e.preventDefault(); isDrawing=true;
+  const {x,y}=getPos(e); lastX=x; lastY=y;
+  dCtx.beginPath(); dCtx.arc(x,y,brushSize/2,0,Math.PI*2);
+  dCtx.fillStyle=drawColor; dCtx.fill();
+}
+function draw(e) {
+  if(!isDrawing) return; e.preventDefault();
+  const {x,y}=getPos(e);
+  dCtx.beginPath(); dCtx.moveTo(lastX,lastY); dCtx.lineTo(x,y);
+  dCtx.strokeStyle=drawColor; dCtx.lineWidth=brushSize;
+  dCtx.lineCap='round'; dCtx.lineJoin='round'; dCtx.stroke();
+  lastX=x; lastY=y;
+}
+function endDraw(e) { if(e) e.preventDefault(); isDrawing=false; }
+
+drawCanvas.addEventListener('mousedown',  startDraw);
+drawCanvas.addEventListener('mousemove',  draw);
+drawCanvas.addEventListener('mouseup',    endDraw);
+drawCanvas.addEventListener('mouseleave', endDraw);
+drawCanvas.addEventListener('touchstart', startDraw, {passive:false});
+drawCanvas.addEventListener('touchmove',  draw,      {passive:false});
+drawCanvas.addEventListener('touchend',   endDraw,   {passive:false});
+
+// ─── Score ────────────────────────────────────────────────────────────────────
+document.getElementById('clearBtn').addEventListener('click', resetScore);
+document.getElementById('checkBtn').addEventListener('click', checkScore);
+
+function checkScore() {
+  if (!currentShapeData) return;
+  const w=guideCanvas.width, h=guideCanvas.height;
+  const off=document.createElement('canvas'); off.width=w; off.height=h;
+  const oCtx=off.getContext('2d');
+  oCtx.save(); oCtx.scale(w/400,h/300);
+  oCtx.strokeStyle='black'; oCtx.lineWidth=Math.max(22,400*0.055);
+  oCtx.lineCap='round'; oCtx.lineJoin='round';
+  currentShapeData.paths.forEach(p=>{ try{oCtx.stroke(new Path2D(p.d));}catch(e){} });
+  oCtx.restore();
+
+  const gd=oCtx.getImageData(0,0,w,h).data, dd=dCtx.getImageData(0,0,w,h).data;
+  let gp=0,cov=0,td=0;
+  for(let i=3;i<gd.length;i+=4){
+    if(gd[i]>50) gp++;
+    if(dd[i]>50){ td++; if(gd[i]>50) cov++; }
+  }
+  if(td<80){ showCel('🤔','Hmm!','Draw something first! ✏️'); return; }
+
+  const score=Math.round(((cov/Math.max(1,gp))*0.6+(cov/Math.max(1,td))*0.4)*100);
+  document.getElementById('scoreNum').textContent=score;
+
+  let stars,emoji,title,msg;
+  if(score>=70){stars='⭐⭐⭐';emoji='🎉';title='Amazing!';msg="You're a superstar artist! 🌟";}
+  else if(score>=45){stars='⭐⭐☆';emoji='😊';title='Great Job!';msg="Keep practicing, you're awesome! 💪";}
+  else if(score>=20){stars='⭐☆☆';emoji='🙂';title='Good Try!';msg="Follow the dotted line! You can do it! 🎨";}
+  else{stars='☆☆☆';emoji='😅';title='Try Again!';msg="Follow the purple dotted line carefully! 🖊️";}
+
+  document.getElementById('starsDisplay').textContent=stars;
+  showCel(emoji,title,msg);
+  if(score>=45) launchConfetti();
+}
+
+function showCel(emoji,title,msg){
+  document.getElementById('celebEmoji').textContent=emoji;
+  document.getElementById('celebTitle').textContent=title;
+  document.getElementById('celebMsg').textContent=msg;
   document.getElementById('celebration').classList.add('show');
 }
-
-document.getElementById('tryAgainBtn').addEventListener('click', () => {
-  document.getElementById('celebration').classList.remove('show');
-  dCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-  document.getElementById('scoreNum').textContent = '0';
-  document.getElementById('starsDisplay').textContent = '☆☆☆';
+document.getElementById('tryAgainBtn').addEventListener('click',()=>{
+  document.getElementById('celebration').classList.remove('show'); resetScore();
 });
 
-function launchConfetti() {
-  const colors = ['#FF6B9D','#FF9F43','#FFD93D','#2ECC71','#5DADE2','#9B59B6'];
-  for (let i = 0; i < 60; i++) {
-    setTimeout(() => {
-      const el = document.createElement('div');
-      el.className = 'confetti-piece';
-      el.style.left = Math.random()*100 + 'vw';
-      el.style.top = '-20px';
-      el.style.background = colors[Math.floor(Math.random()*colors.length)];
-      el.style.animationDuration = (1.5 + Math.random()*1.5) + 's';
-      el.style.animationDelay = (Math.random()*0.8) + 's';
-      el.style.transform = `rotate(${Math.random()*360}deg)`;
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 3500);
-    }, i * 30);
-  }
+function launchConfetti(){
+  const colors=['#FF6B9D','#FF9F43','#FFD93D','#2ECC71','#5DADE2','#9B59B6'];
+  for(let i=0;i<60;i++) setTimeout(()=>{
+    const el=document.createElement('div'); el.className='confetti-piece';
+    el.style.left=Math.random()*100+'vw'; el.style.top='-20px';
+    el.style.background=colors[~~(Math.random()*colors.length)];
+    el.style.animationDuration=(1.5+Math.random()*1.5)+'s';
+    el.style.animationDelay=(Math.random()*0.8)+'s';
+    el.style.transform=`rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(el); setTimeout(()=>el.remove(),3500);
+  },i*30);
 }
 
-// Shape picker
-document.getElementById('shapePicker').addEventListener('click', e => {
-  const btn = e.target.closest('.shape-btn');
-  if (!btn) return;
-  document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  currentShape = btn.dataset.shape;
-  document.getElementById('canvasLabel').textContent = `✏️ Trace the ${shapeNames[currentShape]}!`;
-  dCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-  document.getElementById('scoreNum').textContent = '0';
-  document.getElementById('starsDisplay').textContent = '☆☆☆';
-  drawGuide();
+// ─── Color & Brush ────────────────────────────────────────────────────────────
+document.getElementById('colorPicker').addEventListener('click',e=>{
+  const dot=e.target.closest('.color-dot'); if(!dot) return;
+  document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('selected'));
+  dot.classList.add('selected'); drawColor=dot.dataset.color;
 });
-
-// Color picker
-document.getElementById('colorPicker').addEventListener('click', e => {
-  const dot = e.target.closest('.color-dot');
-  if (!dot) return;
-  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
-  dot.classList.add('selected');
-  drawColor = dot.dataset.color;
-});
-
-// Brush size
-document.querySelectorAll('.brush-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.brush-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    brushSize = parseInt(btn.dataset.size);
+document.querySelectorAll('.brush-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.brush-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected'); brushSize=parseInt(btn.dataset.size);
   });
 });
-
-// Init
-window.addEventListener('resize', resizeCanvases);
-resizeCanvases();
 </script>
 
 </body>
