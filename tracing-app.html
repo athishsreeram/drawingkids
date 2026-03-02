@@ -28,23 +28,23 @@ header p  { color:rgba(255,255,255,0.9); font-size:clamp(13px,3.5vw,16px); font-
 
 .main { max-width:600px; margin:0 auto; padding:20px 16px; position:relative; z-index:1; }
 
-/* API Key Box */
+/* API Key */
 .apikey-section { background:white; border-radius:28px; border:5px solid #5DADE2; padding:20px 18px; margin-bottom:20px; box-shadow:0 6px 24px rgba(93,173,226,0.15); }
-.apikey-title { font-size:clamp(15px,4vw,18px); font-weight:900; color:#1A3A5C; margin-bottom:6px; text-align:center; }
-.apikey-steps { background:#F0F8FF; border-radius:16px; padding:14px 16px; margin-bottom:14px; font-size:13px; font-weight:700; color:#1A3A5C; line-height:2; }
+.apikey-title { font-size:clamp(15px,4vw,18px); font-weight:900; color:#1A3A5C; margin-bottom:8px; text-align:center; }
+.apikey-steps { background:#F0F8FF; border-radius:16px; padding:14px 16px; margin-bottom:14px; font-size:13px; font-weight:700; color:#1A3A5C; line-height:2.2; }
 .apikey-steps a { color:#5DADE2; font-weight:900; }
-.apikey-steps ol { padding-left:18px; }
+.apikey-steps ol { padding-left:20px; }
 .apikey-row { display:flex; gap:10px; }
-.apikey-input { flex:1; padding:12px 16px; border:4px solid #D5EAF8; border-radius:16px; font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:800; color:#333; outline:none; background:#F8FBFF; }
+.apikey-input { flex:1; padding:12px 16px; border:4px solid #D5EAF8; border-radius:16px; font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:800; color:#333; outline:none; background:#F8FBFF; transition:border-color 0.2s; }
 .apikey-input:focus { border-color:#5DADE2; }
 .apikey-input::placeholder { color:#CCC; }
-.apikey-save-btn { padding:12px 18px; border-radius:16px; border:none; background:#5DADE2; color:white; font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:900; cursor:pointer; white-space:nowrap; }
+.apikey-save-btn { padding:12px 18px; border-radius:16px; border:none; background:#5DADE2; color:white; font-family:‘Nunito’,sans-serif; font-size:14px; font-weight:900; cursor:pointer; white-space:nowrap; transition:opacity 0.15s; }
 .apikey-save-btn:active { opacity:0.8; }
 .apikey-ok { display:none; background:#E8FFF4; border:3px solid #2ECC71; border-radius:14px; padding:10px 16px; font-size:14px; font-weight:800; color:#1A6B45; text-align:center; margin-top:10px; }
 .apikey-ok.show { display:block; }
-.change-key-btn { background:none; border:none; color:#5DADE2; font-family:‘Nunito’,sans-serif; font-size:13px; font-weight:800; cursor:pointer; margin-top:6px; display:block; width:100%; text-align:center; }
+.change-key-btn { background:none; border:none; color:#AAA; font-family:‘Nunito’,sans-serif; font-size:12px; font-weight:800; cursor:pointer; display:block; width:100%; text-align:center; margin-top:8px; }
 
-/* Input Section */
+/* Input */
 .input-section { background:white; border-radius:28px; border:5px solid #FF6B9D; padding:20px 18px; margin-bottom:20px; box-shadow:0 6px 24px rgba(255,107,157,0.15); }
 .input-label { font-size:clamp(16px,4.5vw,20px); font-weight:900; color:#6C3483; text-align:center; margin-bottom:14px; }
 .input-row { display:flex; gap:10px; align-items:stretch; }
@@ -130,18 +130,18 @@ header p  { color:rgba(255,255,255,0.9); font-size:clamp(13px,3.5vw,16px); font-
 
   <div class="apikey-section" id="apikeySection">
     <div class="apikey-title">🔑 Free OpenRouter API Key</div>
-    <div class="apikey-steps">
+    <div class="apikey-steps" id="apikeySteps">
       <ol>
-        <li>Go to <a href="https://openrouter.ai" target="_blank">openrouter.ai</a> and sign up free</li>
+        <li>Go to <a href="https://openrouter.ai" target="_blank"><b>openrouter.ai</b></a> — sign up free</li>
         <li>Click your profile → <b>Keys</b> → <b>Create Key</b></li>
-        <li>Copy the key and paste below — it's <b>100% free</b>, no credit card!</li>
+        <li>Copy the key and paste below — <b>100% free, no credit card!</b></li>
       </ol>
     </div>
-    <div class="apikey-row">
-      <input type="password" id="apikeyInput" class="apikey-input" placeholder="Paste your OpenRouter key (sk-or-…)"/>
+    <div class="apikey-row" id="apikeyRow">
+      <input type="password" id="apikeyInput" class="apikey-input" placeholder="Paste your key (sk-or-…)"/>
       <button class="apikey-save-btn" onclick="saveApiKey()">Save ✓</button>
     </div>
-    <div class="apikey-ok" id="apikeyOk">✅ Key saved! You're ready to draw!</div>
+    <div class="apikey-ok" id="apikeyOk">✅ Key saved! Ready to draw anything!</div>
     <button class="change-key-btn" id="changeKeyBtn" onclick="changeKey()" style="display:none">🔄 Change API key</button>
   </div>
 
@@ -184,7 +184,7 @@ header p  { color:rgba(255,255,255,0.9); font-size:clamp(13px,3.5vw,16px); font-
   <div class="loading-box" id="loadingBox">
     <div class="spinner"></div>
     <div class="loading-text" id="loadingText">✨ AI is drawing your shape…</div>
-    <div class="loading-sub" id="loadingSub">Just a moment!</div>
+    <div class="loading-sub"  id="loadingSub">Just a moment!</div>
   </div>
 
   <!-- Error -->
@@ -245,7 +245,7 @@ header p  { color:rgba(255,255,255,0.9); font-size:clamp(13px,3.5vw,16px); font-
 </div>
 
 <script>
-// ─── Canvas ────────────────────────────────────────────────────────────────
+// ─── Canvas Setup ─────────────────────────────────────────────────────────────
 const guideCanvas = document.getElementById('guideCanvas');
 const drawCanvas  = document.getElementById('drawCanvas');
 const gCtx = guideCanvas.getContext('2d');
@@ -263,54 +263,49 @@ function resizeCanvases() {
 }
 window.addEventListener('resize', resizeCanvases);
 
-// ─── API Key ────────────────────────────────────────────────────────────────
+// ─── API Key ──────────────────────────────────────────────────────────────────
 function saveApiKey() {
   const key = document.getElementById('apikeyInput').value.trim();
-  if (!key) { alert('Please paste your API key first!'); return; }
+  if (!key) { alert('Please paste your API key!'); return; }
   if (!key.startsWith('sk-or-')) {
-    alert('This looks incorrect. OpenRouter keys start with "sk-or-"');
-    return;
+    if (!confirm('This key doesn\'t start with "sk-or-" — are you sure it\'s an OpenRouter key?')) return;
   }
-  localStorage.setItem('or_api_key', key);
-  showKeyOk();
+  localStorage.setItem('or_key', key);
   document.getElementById('apikeyInput').value = '';
+  showKeyOk();
 }
 function showKeyOk() {
   document.getElementById('apikeyOk').classList.add('show');
-  document.getElementById('apikeyOk').textContent = '✅ Key saved! Ready to draw!';
-  document.getElementById('apikeyInput').style.display = 'none';
-  document.querySelector('.apikey-save-btn').style.display = 'none';
+  document.getElementById('apikeyRow').style.display   = 'none';
+  document.getElementById('apikeySteps').style.display = 'none';
   document.getElementById('changeKeyBtn').style.display = 'block';
-  document.querySelector('.apikey-steps').style.display = 'none';
 }
 function changeKey() {
-  localStorage.removeItem('or_api_key');
+  localStorage.removeItem('or_key');
   document.getElementById('apikeyOk').classList.remove('show');
-  document.getElementById('apikeyInput').style.display = '';
-  document.querySelector('.apikey-save-btn').style.display = '';
+  document.getElementById('apikeyRow').style.display   = '';
+  document.getElementById('apikeySteps').style.display = '';
   document.getElementById('changeKeyBtn').style.display = 'none';
-  document.querySelector('.apikey-steps').style.display = '';
 }
-function getApiKey() { return localStorage.getItem('or_api_key') || ''; }
+function getKey() { return localStorage.getItem('or_key') || ''; }
 
 window.addEventListener('load', () => {
-  if (getApiKey()) showKeyOk();
+  if (getKey()) showKeyOk();
   resizeCanvases();
 });
 
-// ─── Render Guide ──────────────────────────────────────────────────────────
+// ─── Render Guide ─────────────────────────────────────────────────────────────
 function renderGuide(shapeData) {
   const w = guideCanvas.width, h = guideCanvas.height;
   gCtx.clearRect(0, 0, w, h);
   gCtx.save();
   gCtx.scale(w/400, h/300);
   gCtx.setLineDash([14, 10]);
-  gCtx.strokeStyle = 'rgba(160,100,240,0.8)';
+  gCtx.strokeStyle = 'rgba(160,100,240,0.82)';
   gCtx.lineWidth = 14; gCtx.lineJoin = 'round'; gCtx.lineCap = 'round';
   shapeData.paths.forEach(p => { try { gCtx.stroke(new Path2D(p.d)); } catch(e){} });
   gCtx.setLineDash([]); gCtx.restore();
-  // START dot
-  const r = Math.max(18, w*0.035);
+  const r = Math.max(18, w * 0.035);
   gCtx.fillStyle = '#2ECC71';
   gCtx.beginPath(); gCtx.arc(w/2, r+4, r, 0, Math.PI*2); gCtx.fill();
   gCtx.fillStyle = 'white';
@@ -319,111 +314,32 @@ function renderGuide(shapeData) {
   gCtx.fillText('START', w/2, r+4);
 }
 
-// ─── OpenRouter API ────────────────────────────────────────────────────────
-// Free models to try in order — rotates if one fails
-const FREE_MODELS = [
-  'meta-llama/llama-3.3-70b-instruct:free',
-  'mistralai/mistral-7b-instruct:free',
-  'qwen/qwen-2-7b-instruct:free',
-  'google/gemma-3-4b-it:free',
-];
+// ─── OpenRouter API — uses openrouter/free which auto-picks best live model ──
+const SYSTEM_PROMPT = `You are a shape generator for a kids tracing app.
+Given an object name, respond with ONLY valid JSON — no markdown, no code fences, no explanation.
 
-const SYSTEM_PROMPT = `You are a shape path generator for a kids tracing app.
-Given an object name, respond with ONLY valid JSON — no markdown, no explanation.
-
-Format:
+Required format:
 {
   "label": "Display name",
-  "emoji": "one emoji",
+  "emoji": "single emoji",
   "paths": [
-    { "d": "SVG absolute path string", "label": "part" }
+    { "d": "SVG path string", "label": "part name" }
   ]
 }
 
-Rules for the SVG paths:
-- Coordinate space: 400 wide x 300 tall. Center the shape, ~15% margin on all sides (x:50-350, y:35-265).
-- Use ONLY absolute SVG commands: M, L, C, Q, A, Z — NO lowercase, NO relative coords.
-- Simple coloring-book outline a toddler can trace. Max 4 paths.
-- Outline only — no interior details.
-- Output ONLY the raw JSON object. Nothing else.`;
+SVG path rules:
+- Coordinate space: 400 wide × 300 tall. Center shape with ~15% margin (x: 50-350, y: 35-265).
+- Use ONLY absolute SVG commands: M L C Q A Z — NO lowercase, NO relative commands.
+- Simple coloring-book style outline a toddler can trace. 1 to 4 paths maximum.
+- Outline only, no interior fill details.
+- IMPORTANT: Output ONLY the raw JSON object. No other text.`;
 
-async function callOpenRouter(objectName, modelIndex = 0) {
-  const apiKey = getApiKey();
-  const model  = FREE_MODELS[modelIndex];
-
-  document.getElementById('loadingSub').textContent = `Using model: ${model.split('/')[1].split(':')[0]}…`;
-
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-      'HTTP-Referer': window.location.href,
-      'X-Title': 'Kids Tracing App'
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user',   content: `Create a simple tracing outline for: ${objectName}` }
-      ],
-      temperature: 0.3,
-      max_tokens: 800
-    })
-  });
-
-  // Rate limited or model unavailable → try next model
-  if (res.status === 429 || res.status === 503) {
-    if (modelIndex + 1 < FREE_MODELS.length) {
-      document.getElementById('loadingText').textContent = '🔄 Trying another model…';
-      await sleep(1000);
-      return callOpenRouter(objectName, modelIndex + 1);
-    }
-    throw new Error('All free models are busy right now. Please try again in 30 seconds!');
-  }
-
-  if (!res.ok) {
-    const err = await res.json().catch(()=>({}));
-    const msg = err?.error?.message || `Error ${res.status}`;
-    if (res.status === 401) throw new Error('Invalid API key. Please check your OpenRouter key.');
-    throw new Error(msg);
-  }
-
-  const data = await res.json();
-  const raw  = data?.choices?.[0]?.message?.content || '';
-  const clean = raw.trim()
-    .replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
-
-  let parsed;
-  try { parsed = JSON.parse(clean); }
-  catch {
-    // Sometimes model wraps with extra text — try to extract JSON block
-    const match = clean.match(/\{[\s\S]*\}/);
-    if (match) { try { parsed = JSON.parse(match[0]); } catch { parsed = null; } }
-  }
-
-  if (!parsed?.paths?.length) {
-    // Try next model if parse fails
-    if (modelIndex + 1 < FREE_MODELS.length) {
-      document.getElementById('loadingText').textContent = '🔄 Trying another model…';
-      await sleep(800);
-      return callOpenRouter(objectName, modelIndex + 1);
-    }
-    throw new Error('Could not generate shape. Try a simpler word like "cat" or "star"!');
-  }
-
-  return parsed;
-}
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-// ─── Generate Shape ────────────────────────────────────────────────────────
 async function generateShape(name) {
   name = name.trim();
   if (!name) { showError('Please type something to draw! 🖍️'); return; }
 
-  const apiKey = getApiKey();
-  if (!apiKey) {
+  const key = getKey();
+  if (!key) {
     showError('⚠️ Please enter your free OpenRouter API key above first!');
     document.getElementById('apikeySection').scrollIntoView({behavior:'smooth'});
     return;
@@ -435,31 +351,87 @@ async function generateShape(name) {
   document.getElementById('actionArea').style.display = 'none';
 
   try {
-    const shapeData = await callOpenRouter(name);
-    currentShapeData = shapeData;
-    document.getElementById('canvasLabel').textContent = `✏️ Trace the ${shapeData.emoji} ${shapeData.label}!`;
+    document.getElementById('loadingSub').textContent = 'Connecting to AI…';
+
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${key}`,
+        'HTTP-Referer': window.location.href,
+        'X-Title': 'Kids Tracing App'
+      },
+      body: JSON.stringify({
+        // openrouter/free auto-selects the best available free model — never stale!
+        model: 'openrouter/auto',
+        models: [
+          'meta-llama/llama-3.3-70b-instruct:free',
+          'google/gemma-3-12b-it:free',
+          'qwen/qwen3-8b:free',
+          'deepseek/deepseek-r1-distill-llama-8b:free',
+          'mistralai/mistral-small-3.1-24b-instruct:free'
+        ],
+        route: 'fallback',
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user',   content: `Create a simple tracing shape outline for: ${name}` }
+        ],
+        temperature: 0.3,
+        max_tokens: 800
+      })
+    });
+
+    // Check which model was actually used
+    const data = await res.json();
+
+    if (!res.ok) {
+      const msg = data?.error?.message || `Error ${res.status}`;
+      if (res.status === 401) throw new Error('Invalid API key. Please check and re-enter your OpenRouter key.');
+      if (res.status === 402) throw new Error('No credits. Visit openrouter.ai — free models need no credits!');
+      throw new Error(msg);
+    }
+
+    const usedModel = data?.model || 'AI';
+    document.getElementById('loadingSub').textContent = `✓ Used: ${usedModel.split('/').pop()}`;
+
+    const raw = data?.choices?.[0]?.message?.content || '';
+    const parsed = parseJSON(raw);
+
+    if (!parsed?.paths?.length) throw new Error('Shape could not be generated. Please try a different or simpler word!');
+
+    currentShapeData = parsed;
+    document.getElementById('canvasLabel').textContent = `✏️ Trace the ${parsed.emoji} ${parsed.label}!`;
     document.getElementById('canvasWrapper').classList.add('show');
     document.getElementById('actionArea').style.display = '';
     resetScore();
     resizeCanvases();
+
   } catch(err) {
-    showError('😅 ' + (err.message || 'Something went wrong. Try again!'));
+    showError('😅 ' + (err.message || 'Something went wrong. Please try again!'));
   } finally {
     setLoading(false);
   }
 }
 
-// ─── UI Helpers ────────────────────────────────────────────────────────────
+// Robust JSON parser — strips markdown fences, finds JSON block
+function parseJSON(raw) {
+  let text = raw.trim()
+    .replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/,'').trim();
+  try { return JSON.parse(text); } catch(_) {}
+  // Try to find a JSON object within the text
+  const match = text.match(/\{[\s\S]*\}/);
+  if (match) { try { return JSON.parse(match[0]); } catch(_) {} }
+  return null;
+}
+
+// ─── UI Helpers ───────────────────────────────────────────────────────────────
 function setLoading(on, name='') {
   document.getElementById('loadingBox').classList.toggle('show', on);
   const btn = document.getElementById('generateBtn');
   btn.disabled = on;
   document.getElementById('btnIcon').textContent = on ? '⏳' : '🪄';
   document.getElementById('btnText').textContent = on ? 'Wait…' : 'Draw!';
-  if (on) {
-    document.getElementById('loadingText').textContent = `✨ Creating "${name}"…`;
-    document.getElementById('loadingSub').textContent = 'Connecting to AI…';
-  }
+  if (on) document.getElementById('loadingText').textContent = `✨ Creating "${name}"…`;
 }
 function showError(msg) { const b=document.getElementById('errorBox'); b.innerHTML=msg.replace(/\n/g,'<br>'); b.classList.add('show'); }
 function hideError()     { document.getElementById('errorBox').classList.remove('show'); }
@@ -469,17 +441,17 @@ function resetScore() {
   document.getElementById('starsDisplay').textContent='☆☆☆';
 }
 
-// ─── Events ────────────────────────────────────────────────────────────────
-document.getElementById('generateBtn').addEventListener('click', ()=> generateShape(document.getElementById('shapeInput').value));
-document.getElementById('shapeInput').addEventListener('keydown', e=>{ if(e.key==='Enter') generateShape(e.target.value); });
+// ─── Events ───────────────────────────────────────────────────────────────────
+document.getElementById('generateBtn').addEventListener('click', () => generateShape(document.getElementById('shapeInput').value));
+document.getElementById('shapeInput').addEventListener('keydown', e => { if(e.key==='Enter') generateShape(e.target.value); });
 document.querySelectorAll('.chip').forEach(chip => {
-  chip.addEventListener('click', ()=>{
+  chip.addEventListener('click', () => {
     document.getElementById('shapeInput').value = chip.dataset.val;
     generateShape(chip.dataset.val);
   });
 });
 
-// ─── Drawing ───────────────────────────────────────────────────────────────
+// ─── Drawing ──────────────────────────────────────────────────────────────────
 function getPos(e) {
   const rect=drawCanvas.getBoundingClientRect();
   const sx=drawCanvas.width/rect.width, sy=drawCanvas.height/rect.height;
@@ -487,8 +459,8 @@ function getPos(e) {
   return {x:(src.clientX-rect.left)*sx, y:(src.clientY-rect.top)*sy};
 }
 function startDraw(e) { e.preventDefault(); isDrawing=true; const{x,y}=getPos(e); lastX=x; lastY=y; dCtx.beginPath(); dCtx.arc(x,y,brushSize/2,0,Math.PI*2); dCtx.fillStyle=drawColor; dCtx.fill(); }
-function draw(e)      { if(!isDrawing) return; e.preventDefault(); const{x,y}=getPos(e); dCtx.beginPath(); dCtx.moveTo(lastX,lastY); dCtx.lineTo(x,y); dCtx.strokeStyle=drawColor; dCtx.lineWidth=brushSize; dCtx.lineCap='round'; dCtx.lineJoin='round'; dCtx.stroke(); lastX=x; lastY=y; }
-function endDraw(e)   { if(e) e.preventDefault(); isDrawing=false; }
+function draw(e)      { if(!isDrawing)return; e.preventDefault(); const{x,y}=getPos(e); dCtx.beginPath(); dCtx.moveTo(lastX,lastY); dCtx.lineTo(x,y); dCtx.strokeStyle=drawColor; dCtx.lineWidth=brushSize; dCtx.lineCap='round'; dCtx.lineJoin='round'; dCtx.stroke(); lastX=x; lastY=y; }
+function endDraw(e)   { if(e)e.preventDefault(); isDrawing=false; }
 
 drawCanvas.addEventListener('mousedown',  startDraw);
 drawCanvas.addEventListener('mousemove',  draw);
@@ -498,7 +470,7 @@ drawCanvas.addEventListener('touchstart', startDraw, {passive:false});
 drawCanvas.addEventListener('touchmove',  draw,      {passive:false});
 drawCanvas.addEventListener('touchend',   endDraw,   {passive:false});
 
-// ─── Score ─────────────────────────────────────────────────────────────────
+// ─── Score Check ──────────────────────────────────────────────────────────────
 document.getElementById('clearBtn').addEventListener('click', resetScore);
 document.getElementById('checkBtn').addEventListener('click', checkScore);
 
@@ -507,15 +479,15 @@ function checkScore() {
   const w=guideCanvas.width, h=guideCanvas.height;
   const off=document.createElement('canvas'); off.width=w; off.height=h;
   const oCtx=off.getContext('2d');
-  oCtx.save(); oCtx.scale(w/400, h/300);
+  oCtx.save(); oCtx.scale(w/400,h/300);
   oCtx.strokeStyle='black'; oCtx.lineWidth=Math.max(22,400*0.055);
   oCtx.lineCap='round'; oCtx.lineJoin='round';
-  currentShapeData.paths.forEach(p=>{ try{oCtx.stroke(new Path2D(p.d));}catch(e){} });
+  currentShapeData.paths.forEach(p=>{try{oCtx.stroke(new Path2D(p.d));}catch(e){}});
   oCtx.restore();
   const gd=oCtx.getImageData(0,0,w,h).data, dd=dCtx.getImageData(0,0,w,h).data;
-  let gp=0, cov=0, td=0;
-  for(let i=3;i<gd.length;i+=4){ if(gd[i]>50)gp++; if(dd[i]>50){td++;if(gd[i]>50)cov++;} }
-  if(td<80){ showCel('🤔','Hmm!','Draw something first! ✏️'); return; }
+  let gp=0,cov=0,td=0;
+  for(let i=3;i<gd.length;i+=4){if(gd[i]>50)gp++;if(dd[i]>50){td++;if(gd[i]>50)cov++;}}
+  if(td<80){showCel('🤔','Hmm!','Draw something first! ✏️');return;}
   const score=Math.round(((cov/Math.max(1,gp))*0.6+(cov/Math.max(1,td))*0.4)*100);
   document.getElementById('scoreNum').textContent=score;
   let stars,emoji,title,msg;
@@ -527,31 +499,27 @@ function checkScore() {
   showCel(emoji,title,msg);
   if(score>=45) launchConfetti();
 }
-function showCel(emoji,title,msg){ document.getElementById('celebEmoji').textContent=emoji; document.getElementById('celebTitle').textContent=title; document.getElementById('celebMsg').textContent=msg; document.getElementById('celebration').classList.add('show'); }
-document.getElementById('tryAgainBtn').addEventListener('click',()=>{ document.getElementById('celebration').classList.remove('show'); resetScore(); });
+function showCel(e,t,m){document.getElementById('celebEmoji').textContent=e;document.getElementById('celebTitle').textContent=t;document.getElementById('celebMsg').textContent=m;document.getElementById('celebration').classList.add('show');}
+document.getElementById('tryAgainBtn').addEventListener('click',()=>{document.getElementById('celebration').classList.remove('show');resetScore();});
 function launchConfetti(){
-  const colors=['#FF6B9D','#FF9F43','#FFD93D','#2ECC71','#5DADE2','#9B59B6'];
-  for(let i=0;i<60;i++) setTimeout(()=>{
-    const el=document.createElement('div'); el.className='confetti-piece';
-    el.style.left=Math.random()*100+'vw'; el.style.top='-20px';
-    el.style.background=colors[~~(Math.random()*colors.length)];
-    el.style.animationDuration=(1.5+Math.random()*1.5)+'s';
-    el.style.animationDelay=(Math.random()*0.8)+'s';
-    el.style.transform=`rotate(${Math.random()*360}deg)`;
-    document.body.appendChild(el); setTimeout(()=>el.remove(),3500);
+  const c=['#FF6B9D','#FF9F43','#FFD93D','#2ECC71','#5DADE2','#9B59B6'];
+  for(let i=0;i<60;i++)setTimeout(()=>{
+    const el=document.createElement('div');el.className='confetti-piece';
+    el.style.cssText=`left:${Math.random()*100}vw;top:-20px;background:${c[~~(Math.random()*c.length)]};animation-duration:${1.5+Math.random()*1.5}s;animation-delay:${Math.random()*0.8}s;transform:rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(el);setTimeout(()=>el.remove(),3500);
   },i*30);
 }
 
-// ─── Color & Brush ─────────────────────────────────────────────────────────
+// ─── Color & Brush ────────────────────────────────────────────────────────────
 document.getElementById('colorPicker').addEventListener('click',e=>{
-  const dot=e.target.closest('.color-dot'); if(!dot)return;
+  const dot=e.target.closest('.color-dot');if(!dot)return;
   document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('selected'));
-  dot.classList.add('selected'); drawColor=dot.dataset.color;
+  dot.classList.add('selected');drawColor=dot.dataset.color;
 });
 document.querySelectorAll('.brush-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.brush-btn').forEach(b=>b.classList.remove('selected'));
-    btn.classList.add('selected'); brushSize=parseInt(btn.dataset.size);
+    btn.classList.add('selected');brushSize=parseInt(btn.dataset.size);
   });
 });
 </script>
