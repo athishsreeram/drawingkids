@@ -362,14 +362,7 @@ async function generateShape(name) {
         'X-Title': 'Kids Tracing App'
       },
       body: JSON.stringify({
-        // Up to 3 models allowed — fallback tries next if one is unavailable
-        model: 'meta-llama/llama-3.3-70b-instruct:free',
-        models: [
-          'meta-llama/llama-3.3-70b-instruct:free',
-          'google/gemma-3-12b-it:free',
-          'qwen/qwen3-8b:free'
-        ],
-        route: 'fallback',
+        model: 'openrouter/free',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user',   content: `Create a simple tracing shape outline for: ${name}` }
