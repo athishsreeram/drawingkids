@@ -9,19 +9,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap');
 
 :root {
-–bg: #0f0e17;
-–card: #1a1830;
-–card2: #221f38;
-–text: #fffffe;
-–sub: #a7a9be;
-–yellow: #f7c948;
-–orange: #ff6e27;
-–pink: #ff4d8d;
-–mint: #00e5a0;
-–blue: #4cc9f0;
-–purple: #9b5de5;
-–red: #ef233c;
-–r: 22px;
+–bg: #FFF8E7;
+–card: #FFFFFF;
+–card2: #FFF0D6;
+–text: #2C1810;
+–sub: #7A5C4A;
+–yellow: #FFD93D;
+–orange: #FF6B35;
+–pink: #FF4D8D;
+–mint: #06C96E;
+–blue: #2196F3;
+–purple: #8B4FD8;
+–red: #E53935;
+–r: 24px;
 }
 
 - { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,16 +34,21 @@ color: var(–text);
 overflow-x: hidden;
 }
 
-/* ===== STARFIELD ===== */
+/* ===== CHEERFUL BG ===== */
 .stars {
 position: fixed; inset: 0; pointer-events: none; z-index: 0;
-background: radial-gradient(ellipse at 20% 50%, #1a0f3c 0%, #0f0e17 60%);
+background:
+radial-gradient(circle at 10% 20%, rgba(255,217,61,0.25) 0%, transparent 40%),
+radial-gradient(circle at 90% 10%, rgba(255,107,53,0.18) 0%, transparent 35%),
+radial-gradient(circle at 80% 80%, rgba(33,150,243,0.18) 0%, transparent 40%),
+radial-gradient(circle at 20% 85%, rgba(6,201,110,0.18) 0%, transparent 35%),
+#FFF8E7;
 }
 .star-dot {
-position: absolute; border-radius: 50%; background: white;
-animation: twinkle ease-in-out infinite alternate;
+position: absolute; border-radius: 50%;
+animation: floatBubble ease-in-out infinite alternate;
 }
-@keyframes twinkle { from{opacity:.1} to{opacity:.8} }
+@keyframes floatBubble { from{transform:translateY(0) scale(1)} to{transform:translateY(-12px) scale(1.05)} }
 
 /* ===== SCREENS ===== */
 .screen { display: none; position: relative; z-index: 5; }
@@ -71,7 +76,7 @@ background-size: 200% auto;
 }
 @keyframes shimmer { to { background-position: 200% center; } }
 .hub-sub {
-color: var(–sub); font-size: 1.05rem; font-weight: 600;
+color: #7A5C4A; font-size: 1.2rem; font-weight: 700;
 margin-bottom: 48px; text-align: center;
 }
 
@@ -86,31 +91,32 @@ background: var(–card);
 border-radius: 28px;
 padding: 28px 20px 24px;
 cursor: pointer;
-border: 2px solid transparent;
+border: 4px solid transparent;
 transition: transform .25s, border-color .25s, box-shadow .25s;
 text-align: center;
 position: relative; overflow: hidden;
+box-shadow: 0 6px 20px rgba(0,0,0,0.10);
 }
 .hub-card::before {
 content: ‘’; position: absolute; inset: 0; opacity: 0;
 transition: opacity .3s;
-border-radius: 26px;
+border-radius: 24px;
 }
 .hub-card:hover { transform: translateY(-8px) scale(1.03); }
 .hub-card:hover::before { opacity: 1; }
 .hub-card:active { transform: scale(.97); }
 
-.hub-card[data-color=“yellow”] { –c: var(–yellow); }
-.hub-card[data-color=“orange”] { –c: var(–orange); }
-.hub-card[data-color=“pink”]   { –c: var(–pink); }
-.hub-card[data-color=“mint”]   { –c: var(–mint); }
-.hub-card[data-color=“blue”]   { –c: var(–blue); }
-.hub-card[data-color=“purple”] { –c: var(–purple); }
-.hub-card[data-color=“red”]    { –c: var(–red); }
-.hub-card[data-color=“teal”]   { –c: #00c9b1; }
+.hub-card[data-color=“yellow”] { –c: #FFD93D; background: #FFFBEA; border-color: #FFD93D; }
+.hub-card[data-color=“orange”] { –c: #FF6B35; background: #FFF3EE; border-color: #FF6B35; }
+.hub-card[data-color=“pink”]   { –c: #FF4D8D; background: #FFF0F5; border-color: #FF4D8D; }
+.hub-card[data-color=“mint”]   { –c: #06C96E; background: #EDFFF6; border-color: #06C96E; }
+.hub-card[data-color=“blue”]   { –c: #2196F3; background: #EDF6FF; border-color: #2196F3; }
+.hub-card[data-color=“purple”] { –c: #8B4FD8; background: #F5EEFF; border-color: #8B4FD8; }
+.hub-card[data-color=“red”]    { –c: #E53935; background: #FFF0F0; border-color: #E53935; }
+.hub-card[data-color=“teal”]   { –c: #00B4A6; background: #EDFCFB; border-color: #00B4A6; }
 
-.hub-card:hover { border-color: var(–c); box-shadow: 0 12px 40px -8px color-mix(in srgb, var(–c) 45%, transparent); }
-.hub-card::before { background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(–c) 12%, transparent), transparent 70%); }
+.hub-card:hover { box-shadow: 0 14px 40px -4px color-mix(in srgb, var(–c) 35%, transparent); }
+.hub-card::before { background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(–c) 20%, transparent), transparent 70%); }
 
 .hub-emoji {
 font-size: 3.2rem; display: block; margin-bottom: 12px;
@@ -119,22 +125,23 @@ transition: transform .3s;
 .hub-card:hover .hub-emoji { transform: scale(1.2) rotate(-5deg); }
 .hub-card-title {
 font-family: ‘Fredoka One’, cursive;
-font-size: 1.25rem; color: var(–text); margin-bottom: 6px;
+font-size: 1.3rem; color: #2C1810; margin-bottom: 6px;
 }
-.hub-card-desc { font-size: .8rem; color: var(–sub); line-height: 1.5; }
+.hub-card-desc { font-size: .85rem; color: #7A5C4A; line-height: 1.5; font-weight: 700; }
 
 /* ===== BACK BTN ===== */
 .back-btn {
 position: fixed; top: 16px; left: 16px; z-index: 100;
-background: var(–card); border: 2px solid #333;
-color: var(–text); font-size: 1.4rem;
-width: 48px; height: 48px; border-radius: 50%;
+background: white; border: 3px solid #FFD93D;
+color: #2C1810; font-size: 1.4rem;
+width: 56px; height: 56px; border-radius: 50%;
 cursor: pointer; display: none;
 align-items: center; justify-content: center;
-transition: all .2s; box-shadow: 0 4px 16px rgba(0,0,0,.4);
+transition: all .2s; box-shadow: 0 4px 16px rgba(0,0,0,.15);
+font-weight: 900;
 }
 .back-btn.visible { display: flex; }
-.back-btn:hover { transform: scale(1.1); border-color: var(–yellow); }
+.back-btn:hover { transform: scale(1.1); background: #FFD93D; }
 
 /* ===== GAME HEADER ===== */
 .game-header {
@@ -145,8 +152,9 @@ text-align: center;
 font-family: ‘Fredoka One’, cursive;
 font-size: clamp(1.8rem, 5vw, 2.8rem);
 margin-bottom: 6px;
+color: #2C1810;
 }
-.game-desc { color: var(–sub); font-size: .95rem; }
+.game-desc { color: #7A5C4A; font-size: 1rem; font-weight: 700; }
 
 .game-content { padding: 0 16px 80px; max-width: 900px; margin: 0 auto; }
 
@@ -156,61 +164,69 @@ background: #fff;
 border-radius: 20px;
 overflow: hidden;
 position: relative;
-box-shadow: 0 8px 32px rgba(0,0,0,.5);
+box-shadow: 0 6px 24px rgba(0,0,0,.12);
 touch-action: none;
+border: 3px solid #FFD93D;
 }
 .canvas-container canvas { display: block; touch-action: none; cursor: crosshair; }
 
 .tools-panel {
-background: var(–card); border-radius: 20px;
+background: white; border-radius: 20px;
 padding: 16px 20px; margin-top: 16px;
 display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+box-shadow: 0 4px 16px rgba(0,0,0,.08);
+border: 2px solid #FFE9A0;
 }
 .palette { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
 .swatch {
-width: 36px; height: 36px; border-radius: 50%;
+width: 40px; height: 40px; border-radius: 50%;
 cursor: pointer; border: 3px solid transparent;
 transition: transform .15s, border-color .15s;
-box-shadow: 0 2px 8px rgba(0,0,0,.4);
+box-shadow: 0 2px 8px rgba(0,0,0,.2);
 }
 .swatch:hover { transform: scale(1.2); }
-.swatch.active { border-color: white; transform: scale(1.25); }
-.swatch.eraser-swatch { background: #fff url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ viewBox=‘0 0 24 24’ fill=’%23999’%3E%3Cpath d=‘M20 20H7L3 16l12-12 6 6-3 3 2 7z’/%3E%3C/svg%3E”) center/18px no-repeat; }
+.swatch.active { border-color: #2C1810; transform: scale(1.3); box-shadow: 0 0 0 3px white, 0 0 0 5px #2C1810; }
+.swatch.eraser-swatch { background: #fff url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ viewBox=‘0 0 24 24’ fill=’%23999’%3E%3Cpath d=‘M20 20H7L3 16l12-12 6 6-3 3 2 7z’/%3E%3C/svg%3E”) center/18px no-repeat; border: 2px solid #ddd; }
 
 .size-wrap { display: flex; align-items: center; gap: 8px; }
-.size-wrap label { color: var(–sub); font-size: .8rem; font-weight: 700; white-space: nowrap; }
+.size-wrap label { color: #7A5C4A; font-size: .85rem; font-weight: 800; white-space: nowrap; }
 input[type=range] {
--webkit-appearance: none; height: 6px; border-radius: 3px;
-background: linear-gradient(90deg, var(–pink), var(–purple));
+-webkit-appearance: none; height: 8px; border-radius: 4px;
+background: linear-gradient(90deg, var(–orange), var(–pink));
 outline: none; width: 90px;
 }
 input[type=range]::-webkit-slider-thumb {
--webkit-appearance: none; width: 20px; height: 20px;
+-webkit-appearance: none; width: 24px; height: 24px;
 border-radius: 50%; background: white;
-box-shadow: 0 2px 8px rgba(0,0,0,.4); cursor: pointer;
+box-shadow: 0 2px 8px rgba(0,0,0,.3); cursor: pointer;
+border: 2px solid #ddd;
 }
 
 .act-btn {
-border: none; cursor: pointer; border-radius: 12px;
-padding: 9px 16px; font-weight: 800; font-size: .85rem;
+border: none; cursor: pointer; border-radius: 14px;
+padding: 11px 18px; font-weight: 800; font-size: .9rem;
 font-family: ‘Nunito’, sans-serif; transition: all .2s;
 display: flex; align-items: center; gap: 6px;
+box-shadow: 0 3px 10px rgba(0,0,0,.12);
 }
-.act-btn:hover { transform: translateY(-2px); }
-.btn-yellow { background: var(–yellow); color: #1a1a1a; }
+.act-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+.btn-yellow { background: var(–yellow); color: #2C1810; }
 .btn-pink   { background: var(–pink);   color: white; }
-.btn-mint   { background: var(–mint);   color: #1a1a1a; }
-.btn-blue   { background: var(–blue);   color: #1a1a1a; }
-.btn-ghost  { background: #2a2745; color: var(–sub); border: 1.5px solid #3a3660; }
+.btn-mint   { background: var(–mint);   color: #fff; }
+.btn-blue   { background: var(–blue);   color: #fff; }
+.btn-ghost  { background: #F0E8FF; color: #5B2E9C; border: 2px solid #C4A0F0; }
 
 /* ===== MODULE CARDS ===== */
 .mod-card {
-background: var(–card); border-radius: var(–r);
+background: white; border-radius: var(–r);
 padding: 22px; margin-bottom: 16px;
+box-shadow: 0 4px 20px rgba(0,0,0,.08);
+border: 2px solid #FFE9A0;
 }
 .mod-title {
 font-family: ‘Fredoka One’, cursive;
-font-size: 1.2rem; margin-bottom: 12px;
+font-size: 1.3rem; margin-bottom: 12px;
+color: #2C1810;
 display: flex; align-items: center; gap: 8px;
 }
 
@@ -220,9 +236,9 @@ display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
 background: #333; border-radius: 20px; overflow: hidden;
 }
 .mirror-label {
-text-align: center; padding: 8px;
-font-weight: 800; font-size: .85rem; color: var(–sub);
-background: var(–card);
+text-align: center; padding: 10px;
+font-weight: 800; font-size: .9rem; color: #2C1810;
+background: #FFF8E7;
 }
 
 /* ===== MISSING PUZZLE ===== */
@@ -236,24 +252,25 @@ font-size: .8rem; font-weight: 800; margin-bottom: 10px;
 /* ===== DOT TO DOT ===== */
 #dotCanvas { cursor: pointer; }
 .dot-info {
-background: var(–card2); border-radius: 14px; padding: 14px 18px;
+background: #FFF8E7; border-radius: 14px; padding: 14px 18px;
 display: flex; align-items: center; gap: 14px; margin-top: 12px;
+border: 2px solid #FFE9A0;
 }
 .dot-info .next-dot {
-font-size: 2rem; font-weight: 900; color: var(–yellow);
+font-size: 2rem; font-weight: 900; color: var(–orange);
 font-family: ‘Fredoka One’, cursive;
 }
 .dot-selector {
 display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px;
 }
 .dot-subject-btn {
-background: var(–card2); border: 2px solid #333; border-radius: 14px;
+background: #FFF8E7; border: 3px solid #FFE9A0; border-radius: 14px;
 padding: 10px 16px; cursor: pointer; font-weight: 800;
-font-size: .9rem; color: var(–text); font-family: ‘Nunito’, sans-serif;
+font-size: .9rem; color: #2C1810; font-family: ‘Nunito’, sans-serif;
 transition: all .2s;
 }
 .dot-subject-btn:hover, .dot-subject-btn.active {
-border-color: var(–blue); color: var(–blue); background: rgba(76,201,240,.1);
+border-color: var(–blue); color: var(–blue); background: #EDF6FF;
 }
 
 /* ===== EMOTION ===== */
@@ -262,16 +279,16 @@ display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap:
 margin-bottom: 16px;
 }
 .emotion-btn {
-background: var(–card2); border: 2px solid #333; border-radius: 16px;
+background: #FFF8E7; border: 3px solid #FFE9A0; border-radius: 16px;
 padding: 14px 8px; cursor: pointer; text-align: center;
 transition: all .2s; font-family: ‘Nunito’, sans-serif;
 }
 .emotion-btn:hover, .emotion-btn.active {
-border-color: var(–pink); background: rgba(255,77,141,.1);
-transform: scale(1.05);
+border-color: var(–pink); background: #FFF0F5;
+transform: scale(1.08);
 }
-.emotion-btn .em { font-size: 2.2rem; display: block; }
-.emotion-btn .el { font-size: .75rem; font-weight: 800; color: var(–sub); margin-top: 4px; }
+.emotion-btn .em { font-size: 2.4rem; display: block; }
+.emotion-btn .el { font-size: .8rem; font-weight: 800; color: #7A5C4A; margin-top: 4px; }
 .face-template { position: relative; }
 
 /* ===== COLOR MIX ===== */
@@ -287,14 +304,14 @@ transition: transform .2s;
 box-shadow: 0 8px 30px rgba(0,0,0,.4);
 }
 .mix-blob:hover { transform: scale(1.1); }
-.mix-plus { font-size: 2rem; color: var(–sub); font-weight: 900; }
+.mix-plus { font-size: 2rem; color: #7A5C4A; font-weight: 900; }
 .mix-result {
 width: 120px; height: 120px; border-radius: 50%;
 display: flex; align-items: center; justify-content: center;
 font-size: 1.4rem; font-weight: 900; color: white;
-box-shadow: 0 8px 30px rgba(0,0,0,.4);
+box-shadow: 0 8px 30px rgba(0,0,0,.2);
 font-family: ‘Fredoka One’, cursive;
-border: 3px dashed rgba(255,255,255,.3);
+border: 4px dashed rgba(0,0,0,.15);
 transition: background .5s;
 }
 .color-picker-grid {
@@ -311,19 +328,20 @@ box-shadow: 0 3px 12px rgba(0,0,0,.3);
 
 /* ===== SQUIGGLE ===== */
 .squiggle-prompt {
-background: linear-gradient(135deg, rgba(155,93,229,.2), rgba(76,201,240,.2));
-border: 2px solid rgba(155,93,229,.4); border-radius: 16px;
+background: linear-gradient(135deg, #F0E8FF, #E8F4FF);
+border: 3px solid #C4A0F0; border-radius: 16px;
 padding: 16px 20px; margin-bottom: 14px;
-font-size: 1.1rem; font-weight: 700; text-align: center;
+font-size: 1.1rem; font-weight: 800; text-align: center;
+color: #2C1810;
 }
 .name-input {
-background: var(–card2); border: 2px solid #3a3660;
-color: var(–text); padding: 10px 16px;
-border-radius: 12px; font-size: 1rem; font-family: ‘Nunito’, sans-serif;
+background: #FFF8E7; border: 3px solid #FFD93D;
+color: #2C1810; padding: 12px 18px;
+border-radius: 14px; font-size: 1rem; font-family: ‘Nunito’, sans-serif;
 font-weight: 700; outline: none; width: 100%; margin-top: 10px;
 }
-.name-input:focus { border-color: var(–purple); }
-.name-input::placeholder { color: var(–sub); }
+.name-input:focus { border-color: var(–purple); background: white; }
+.name-input::placeholder { color: #B09A88; }
 
 /* ===== TIMED CHALLENGE ===== */
 .timer-ring-wrap { display: flex; align-items: center; justify-content: center; margin: 16px 0; }
@@ -332,11 +350,11 @@ font-weight: 700; outline: none; width: 100%; margin-top: 10px;
 .timer-ring circle {
 fill: none; stroke-width: 8;
 }
-.timer-bg { stroke: #2a2745; }
+.timer-bg { stroke: #F0E8E0; }
 .timer-fg { stroke: var(–mint); stroke-linecap: round; transition: stroke-dashoffset .9s linear; }
 .timer-num {
 position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-font-family: ‘Fredoka One’, cursive; font-size: 2rem; color: var(–text);
+font-family: ‘Fredoka One’, cursive; font-size: 2rem; color: #2C1810;
 }
 .challenge-prompt {
 text-align: center; margin-bottom: 16px;
@@ -351,13 +369,13 @@ display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap
 margin-bottom: 16px;
 }
 .challenge-btn {
-background: var(–card2); border: 2px solid #333; border-radius: 14px;
+background: #FFF8E7; border: 3px solid #FFE9A0; border-radius: 14px;
 padding: 14px 10px; cursor: pointer; text-align: center;
-font-weight: 800; font-size: .9rem; color: var(–text);
+font-weight: 800; font-size: .95rem; color: #2C1810;
 font-family: ‘Nunito’, sans-serif; transition: all .2s;
 }
 .challenge-btn:hover, .challenge-btn.active {
-border-color: var(–orange); color: var(–orange); background: rgba(255,110,39,.1);
+border-color: var(–orange); color: var(–orange); background: #FFF3EE;
 transform: scale(1.04);
 }
 
@@ -374,13 +392,13 @@ cursor: pointer;
 .gallery-item:hover { transform: scale(1.04) rotate(-1deg); }
 .gallery-item img { width: 100%; display: block; }
 .gallery-label {
-background: var(–card); padding: 8px 10px;
-font-size: .8rem; font-weight: 800; color: var(–sub);
+background: #FFF8E7; padding: 8px 10px;
+font-size: .8rem; font-weight: 800; color: #7A5C4A;
 text-align: center;
 }
 .gallery-empty {
-grid-column: 1/-1; text-align: center; color: var(–sub);
-padding: 40px; font-size: 1.1rem;
+grid-column: 1/-1; text-align: center; color: #B09A88;
+padding: 40px; font-size: 1.1rem; font-weight: 700;
 }
 
 /* ===== STEP GUIDE ===== */
@@ -389,31 +407,32 @@ display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap
 margin-bottom: 20px;
 }
 .guide-subject-btn {
-background: var(–card2); border: 2px solid #333; border-radius: 16px;
+background: #FFF8E7; border: 3px solid #FFE9A0; border-radius: 16px;
 padding: 14px 8px; cursor: pointer; text-align: center;
 transition: all .2s; font-family: ‘Nunito’, sans-serif;
 }
 .guide-subject-btn:hover, .guide-subject-btn.active {
-border-color: var(–mint); background: rgba(0,229,160,.08);
+border-color: var(–mint); background: #EDFFF6;
+transform: scale(1.05);
 }
 .guide-subject-btn .gsem { font-size: 2rem; display: block; margin-bottom: 4px; }
-.guide-subject-btn .gsl { font-size: .78rem; font-weight: 800; color: var(–sub); }
+.guide-subject-btn .gsl { font-size: .82rem; font-weight: 800; color: #7A5C4A; }
 .steps-panel {
 display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px;
 margin-bottom: 16px; scroll-snap-type: x mandatory;
 }
 .step-card {
-flex: 0 0 200px; background: var(–card2); border-radius: 18px;
+flex: 0 0 200px; background: #FFF8E7; border-radius: 18px;
 padding: 16px; scroll-snap-align: start;
-border: 2px solid #333; text-align: center;
+border: 3px solid #FFE9A0; text-align: center;
 }
-.step-card.current-step { border-color: var(–mint); }
+.step-card.current-step { border-color: var(–mint); background: #EDFFF6; }
 .step-num {
-background: var(–mint); color: #111; font-weight: 900; font-size: .85rem;
-display: inline-block; padding: 2px 10px; border-radius: 99px; margin-bottom: 8px;
+background: var(–mint); color: white; font-weight: 900; font-size: .85rem;
+display: inline-block; padding: 4px 12px; border-radius: 99px; margin-bottom: 8px;
 }
-.step-svg-wrap { background: white; border-radius: 12px; padding: 8px; margin: 8px 0; }
-.step-text { font-size: .82rem; color: var(–sub); font-weight: 700; line-height: 1.5; }
+.step-svg-wrap { background: white; border-radius: 12px; padding: 8px; margin: 8px 0; border: 2px solid #eee; }
+.step-text { font-size: .85rem; color: #7A5C4A; font-weight: 700; line-height: 1.5; }
 .guide-canvas-wrap { position: relative; }
 
 /* ===== CELEBRATIONS ===== */
@@ -676,7 +695,7 @@ box-shadow: 0 8px 30px rgba(0,229,160,.4); pointer-events: none;
     <div class="mod-card" id="mixGuessPanel" style="display:none;">
       <div class="mod-title">🎯 What color do you get?</div>
       <div class="color-picker-grid" id="mixGuessGrid"></div>
-      <div id="mixFeedback" style="margin-top:14px;font-weight:800;font-size:1.1rem;min-height:28px;"></div>
+      <div id="mixFeedback" style="margin-top:14px;font-weight:800;font-size:1.1rem;min-height:28px;color:#2C1810;"></div>
       <button class="act-btn btn-yellow mt14" onclick="newMixChallenge()">🔀 Try Another Mix</button>
     </div>
   </div>
@@ -759,8 +778,8 @@ box-shadow: 0 8px 30px rgba(0,229,160,.4); pointer-events: none;
     <div class="mod-card" id="challengeDonePanel" style="display:none;">
       <div style="text-align:center;padding:20px 0;">
         <div style="font-size:3rem;margin-bottom:10px;">🎉</div>
-        <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:8px;">Awesome job!</div>
-        <div style="color:var(--sub);font-size:.95rem;margin-bottom:20px;" id="challengeDoneMsg"></div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:8px;color:#2C1810;">Awesome job!</div>
+        <div style="color:#7A5C4A;font-size:.95rem;margin-bottom:20px;font-weight:700;" id="challengeDoneMsg"></div>
         <div class="flex-row" style="justify-content:center;">
           <button class="act-btn btn-mint"   onclick="saveChallengeDrawing()">💾 Save Drawing</button>
           <button class="act-btn btn-yellow" onclick="playAgainChallenge()">🔀 Play Again</button>
@@ -780,7 +799,7 @@ box-shadow: 0 8px 30px rgba(0,229,160,.4); pointer-events: none;
   <div class="game-content">
     <div class="mod-card">
       <div class="flex-row" style="margin-bottom:16px;">
-        <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;" id="galleryCount">0 drawings</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:#2C1810;" id="galleryCount">0 drawings</div>
         <button class="act-btn btn-pink" onclick="clearGallery()">🗑️ Clear All</button>
       </div>
       <div class="gallery-grid" id="galleryGrid">
@@ -801,15 +820,16 @@ let currentScreen = 'home';
 const COLORS = ['#222222','#ef233c','#ff6e27','#f7c948','#06d6a0','#4cc9f0','#9b5de5','#ff4d8d','#a8dadc','#f4f1de','#ffffff','#8B4513'];
 
 // =============================================
-// STARS BACKGROUND
+// COLORFUL BUBBLES BACKGROUND
 // =============================================
-(function buildStars() {
+(function buildBubbles() {
   const bg = document.getElementById('starsBg');
-  for (let i = 0; i < 80; i++) {
+  const colors = ['#FFD93D44','#FF6B3544','#FF4D8D33','#06C96E33','#2196F333','#8B4FD833'];
+  for (let i = 0; i < 18; i++) {
     const s = document.createElement('div');
     s.className = 'star-dot';
-    const size = Math.random() * 3 + 1;
-    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*4}s;`;
+    const size = 30 + Math.random() * 80;
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${4+Math.random()*5}s;animation-delay:${Math.random()*4}s;`;
     bg.appendChild(s);
   }
 })();
@@ -1330,11 +1350,11 @@ const MIX_NAMES = {
 function initColorMix() {
   // reset
   mixColorA = null; mixColorB = null; mixActiveBlob = null;
-  document.getElementById('mixA').style.background = '#2a2745';
+  document.getElementById('mixA').style.background = '#E8E0FF';
   document.getElementById('mixA').textContent = '?';
-  document.getElementById('mixB').style.background = '#2a2745';
+  document.getElementById('mixB').style.background = '#FFE8F0';
   document.getElementById('mixB').textContent = '?';
-  document.getElementById('mixResult').style.background = '#2a2745';
+  document.getElementById('mixResult').style.background = '#F0F0F0';
   document.getElementById('mixResult').textContent = '?';
   document.getElementById('mixGuessPanel').style.display = 'none';
 
